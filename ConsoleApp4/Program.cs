@@ -62,34 +62,19 @@ namespace ConsoleApp4
                     AddNewUser(names);
                     break;
                 case 4:
-                    Console.WriteLine("Enter your username:");
-                    var username6 = Console.ReadLine();
-                    Console.WriteLine("Enter your password:");
-                    var password6 = Convert.ToInt32(Console.ReadLine());
+                    DisplayAllUsers(names);
                     break;
                 case 5:
-                    Console.WriteLine("Enter your username:");
-                    var username7 = Console.ReadLine();
-                    Console.WriteLine("Enter your password:");
-                    var password7 = Convert.ToInt32(Console.ReadLine());
+                    DisplayInactiveUsers(names);
                     break;
                 case 6:
-                    Console.WriteLine("Enter your username:");
-                    var username8 = Console.ReadLine();
-                    Console.WriteLine("Enter your password:");
-                    var password8 = Convert.ToInt32(Console.ReadLine());
+                    DisplayActiveUsers(names);
                     break;
                 case 7:
-                    Console.WriteLine("Enter your username:");
-                    var username9 = Console.ReadLine();
-                    Console.WriteLine("Enter your password:");
-                    var password9 = Convert.ToInt32(Console.ReadLine());
+                    DisplayProducts(names);
                     break;
                 case 8:
-                    Console.WriteLine("Enter your username:");
-                    var username10 = Console.ReadLine();
-                    Console.WriteLine("Enter your password:");
-                    var password10 = Convert.ToInt32(Console.ReadLine());
+                    DisplayOrders(names);
                     break;
                 case 9:
                     Environment.Exit(0);
@@ -127,6 +112,41 @@ namespace ConsoleApp4
             var username = Console.ReadLine();
             Console.WriteLine("Enter your password:");
             var password = Convert.ToInt32(Console.ReadLine());
+        }
+        static void DisplayAllUsers(List<string> allUsers)
+        {
+            foreach (var user in allUsers)
+            {
+                Console.WriteLine(user);
+            }
+        }
+        static void DisplayInactiveUsers(List<string> inactiveUsers)
+        {
+            foreach (var user in inactiveUsers)
+            {
+                Console.WriteLine(user);
+            }
+        }
+        static void DisplayActiveUsers(List<string> activeUsers)
+        {
+            foreach (var user in activeUsers)
+            {
+                Console.WriteLine(user);
+            }
+        }
+        static void DisplayProducts(List<string> products)
+        {
+            foreach (var product in products)
+            {
+                Console.WriteLine(product);
+            }
+        }
+        static void DisplayOrders(List<string> orders)
+        {
+            foreach (var order in orders)
+            {
+                Console.WriteLine(order);
+            }
         }
     }
 }

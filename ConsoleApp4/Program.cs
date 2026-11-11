@@ -14,7 +14,8 @@ namespace ConsoleApp4
         {
             List<string> names = new List<string>();
 
-            var roles = "1. Admin" +
+            var roles = "Please Select a user role to login:" +
+                        "\n1. Admin" +
                         "\n2. Warehouse" +
                         "\n3. User";
 
@@ -24,23 +25,16 @@ namespace ConsoleApp4
             var input = Convert.ToInt32(Console.ReadLine());
 
             switch (input)
-        {
-            case 1:
-                    Console.WriteLine("Enter your username:");
-                    var username = Console.ReadLine();
-                    Console.WriteLine("Enter your password:");
-                    var password = Convert.ToInt32(Console.ReadLine());
+            {
+                case 1:
+                    AddUser(names);
                     break;
-            case 2:
-                    Console.WriteLine("Enter your username:");
-                    var username2 = Console.ReadLine();
-                    Console.WriteLine("Enter your password:");
-                    var password2 = Convert.ToInt32(Console.ReadLine());
+                case 2:
                     break;
                 default:
-                Console.WriteLine("Invalid input");
-                break;
-        }
+                    Console.WriteLine("Invalid input");
+                    break;
+            }
             var question = "Please select an option:" +
                         "\n1.Update Password" +
                         "\n2.Inactivate User" +
@@ -53,26 +47,19 @@ namespace ConsoleApp4
                         "9.Logout";
 
             Console.WriteLine(question);
-            switch (input)
+            Console.Write("Enter a number: ");
+            var answer = Convert.ToInt32(Console.ReadLine());
+
+            switch (answer)
             {
                 case 1:
-                    Console.Write("Update Password:");
-                    var newPass = Console.ReadLine();
-                    var password = newPass;
-                    Console.WriteLine("New password:" + password);
-
+                    SetNewPassword(roles);
                     break;
                 case 2:
-                    Console.WriteLine("Enter your username:");
-                    var username4 = Console.ReadLine();
-                    Console.WriteLine("Enter your password:");
-                    var password4 = Convert.ToInt32(Console.ReadLine());
+                    RemoveUser(names);
                     break;
                 case 3:
-                    Console.WriteLine("Enter your username:");
-                    var username5 = Console.ReadLine();
-                    Console.WriteLine("Enter your password:");
-                    var password5 = Convert.ToInt32(Console.ReadLine());
+                    AddNewUser(names);
                     break;
                 case 4:
                     Console.WriteLine("Enter your username:");
@@ -105,19 +92,41 @@ namespace ConsoleApp4
                     var password10 = Convert.ToInt32(Console.ReadLine());
                     break;
                 case 9:
-                        Environment.Exit(0);
-                        break;
+                    Environment.Exit(0);
+                    break;
                 default:
-                        Console.WriteLine("Invalid input");
-                        break;
+                    Console.WriteLine("Invalid input");
+                    break;
             }
 
             Console.WriteLine("\nEnter a number:");
             var response = Convert.ToInt32(Console.ReadLine());
         }
-        static void AddRoles(List<string> roles, string role)
+        static void AddUser(List<string> userInfo)
         {
-            roles.Add(role);
+            Console.WriteLine("Enter your username:");
+            var username = Console.ReadLine();
+            Console.WriteLine("Enter your password:");
+            var password = Convert.ToInt32(Console.ReadLine());
+        }
+        static void SetNewPassword(string newPas)
+        {
+            Console.Write("Update Password:");
+            var newPass = Convert.ToInt32(Console.ReadLine());
+            var password = newPass;
+            Console.WriteLine("New password:" + password.ToString());
+        }
+        static void RemoveUser(List<string> InactUser)
+        {
+            Console.Write("Enter a username:");
+            var username = Console.ReadLine();
+        }
+        static void AddNewUser(List<string> newUser)
+        {
+            Console.WriteLine("Enter your username:");
+            var username = Console.ReadLine();
+            Console.WriteLine("Enter your password:");
+            var password = Convert.ToInt32(Console.ReadLine());
         }
     }
 }

@@ -31,7 +31,13 @@ namespace ConsoleApp4
                     Console.WriteLine("Enter your password:");
                     var password = Convert.ToInt32(Console.ReadLine());
                     break;
-            default:
+            case 2:
+                    Console.WriteLine("Enter your username:");
+                    var username2 = Console.ReadLine();
+                    Console.WriteLine("Enter your password:");
+                    var password2 = Convert.ToInt32(Console.ReadLine());
+                    break;
+                default:
                 Console.WriteLine("Invalid input");
                 break;
         }
@@ -45,7 +51,66 @@ namespace ConsoleApp4
                         "\n7.Display Products" +
                         "\n8.Display Orders" +
                         "9.Logout";
+
             Console.WriteLine(question);
+            switch (input)
+            {
+                case 1:
+                    Console.Write("Update Password:");
+                    var newPass = Console.ReadLine();
+                    var password = newPass;
+                    Console.WriteLine("New password:" + password);
+
+                    break;
+                case 2:
+                    Console.WriteLine("Enter your username:");
+                    var username4 = Console.ReadLine();
+                    Console.WriteLine("Enter your password:");
+                    var password4 = Convert.ToInt32(Console.ReadLine());
+                    break;
+                case 3:
+                    Console.WriteLine("Enter your username:");
+                    var username5 = Console.ReadLine();
+                    Console.WriteLine("Enter your password:");
+                    var password5 = Convert.ToInt32(Console.ReadLine());
+                    break;
+                case 4:
+                    Console.WriteLine("Enter your username:");
+                    var username6 = Console.ReadLine();
+                    Console.WriteLine("Enter your password:");
+                    var password6 = Convert.ToInt32(Console.ReadLine());
+                    break;
+                case 5:
+                    Console.WriteLine("Enter your username:");
+                    var username7 = Console.ReadLine();
+                    Console.WriteLine("Enter your password:");
+                    var password7 = Convert.ToInt32(Console.ReadLine());
+                    break;
+                case 6:
+                    Console.WriteLine("Enter your username:");
+                    var username8 = Console.ReadLine();
+                    Console.WriteLine("Enter your password:");
+                    var password8 = Convert.ToInt32(Console.ReadLine());
+                    break;
+                case 7:
+                    Console.WriteLine("Enter your username:");
+                    var username9 = Console.ReadLine();
+                    Console.WriteLine("Enter your password:");
+                    var password9 = Convert.ToInt32(Console.ReadLine());
+                    break;
+                case 8:
+                    Console.WriteLine("Enter your username:");
+                    var username10 = Console.ReadLine();
+                    Console.WriteLine("Enter your password:");
+                    var password10 = Convert.ToInt32(Console.ReadLine());
+                    break;
+                case 9:
+                        Environment.Exit(0);
+                        break;
+                default:
+                        Console.WriteLine("Invalid input");
+                        break;
+            }
 
             Console.WriteLine("\nEnter a number:");
             var response = Convert.ToInt32(Console.ReadLine());

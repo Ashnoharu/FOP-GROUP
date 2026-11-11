@@ -11,8 +11,9 @@ namespace ConsoleApp4
 
         static void Main(string[] args)
         {
-
             Console.WriteLine("HELLO");
+            Console.WriteLine();
+            Console.WriteLine("Press any key to exit...");
         }
     }
 }

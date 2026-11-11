@@ -21,7 +21,7 @@ namespace ConsoleApp4
 
             Console.WriteLine(roles);
 
-            Console.WriteLine("\nEnter a number:");
+            Console.Write("\nEnter a number:");
             var input = Convert.ToInt32(Console.ReadLine());
 
             switch (input)
@@ -30,6 +30,7 @@ namespace ConsoleApp4
                     AddUser(names);
                     break;
                 case 2:
+                    WarehouseRole();
                     break;
                 default:
                     Console.WriteLine("Invalid input");
@@ -44,7 +45,7 @@ namespace ConsoleApp4
                         "\n6.Display Active Users" +
                         "\n7.Display Products" +
                         "\n8.Display Orders" +
-                        "9.Logout";
+                        "\n9.Logout";
 
             Console.WriteLine(question);
             Console.Write("Enter a number: ");
@@ -84,14 +85,14 @@ namespace ConsoleApp4
                     break;
             }
 
-            Console.WriteLine("\nEnter a number:");
+            Console.Write("\nEnter a number:");
             var response = Convert.ToInt32(Console.ReadLine());
         }
         static void AddUser(List<string> userInfo)
         {
-            Console.WriteLine("Enter your username:");
+            Console.Write("Enter your username:");
             var username = Console.ReadLine();
-            Console.WriteLine("Enter your password:");
+            Console.Write("Enter your password:");
             var password = Convert.ToInt32(Console.ReadLine());
         }
         static void SetNewPassword(string newPas)
@@ -146,6 +147,41 @@ namespace ConsoleApp4
             foreach (var order in orders)
             {
                 Console.WriteLine(order);
+            }
+        }
+        static void WarehouseRole()
+        {
+            Console.Write("Please enter the number of products you want to add: ");
+            var productsNum = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0; i < productsNum; i++)
+            {
+                Console.Write("Please enter the name of the product:");
+                var productName = Console.ReadLine();
+
+                Console.Write("Please enter the quantity of the product:");
+                var productQuantity = Convert.ToInt32(Console.ReadLine());
+            }
+
+            var option = "Please select an option" +
+                        "\n1.Add Products" +
+                        "\n2.Display Products";
+            Console.WriteLine(option);
+
+            Console.Write("Pick a Number: ");
+            var optionNo = Convert.ToInt32(Console.ReadLine());
+
+            switch (optionNo)
+            {
+                case 1:
+                    Console.WriteLine();
+                    break;
+                case 2:
+                    Console.WriteLine("TESTING");
+                    break;
+                default:
+                    Console.WriteLine("Invalid input");
+                    break;
             }
         }
     }

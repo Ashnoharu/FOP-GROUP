@@ -35,6 +35,20 @@ namespace ConsoleApp4
                 Console.WriteLine("Invalid input");
                 break;
         }
+            var question = "Please select an option:" +
+                        "\n1.Update Password" +
+                        "\n2.Inactivate User" +
+                        "\n3.Add User" +
+                        "\n4.Display All Users" +
+                        "\n5.Display Inactive Users" +
+                        "\n6.Display Active Users" +
+                        "\n7.Display Products" +
+                        "\n8.Display Orders" +
+                        "9.Logout";
+            Console.WriteLine(question);
+
+            Console.WriteLine("\nEnter a number:");
+            var response = Convert.ToInt32(Console.ReadLine());
         }
         static void AddRoles(List<string> roles, string role)
         {

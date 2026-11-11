@@ -174,7 +174,7 @@ namespace ConsoleApp4
             switch (optionNo)
             {
                 case 1:
-                    Console.WriteLine();
+                    Console.WriteLine("WORK IN PROGRESS");
                     break;
                 case 2:
                     Console.WriteLine("TESTING");

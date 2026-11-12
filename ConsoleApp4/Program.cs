@@ -12,31 +12,34 @@ namespace ConsoleApp4
 
         static void Main(string[] args)
         {
-            List<string> names = new List<string>();
-
-            var roles = "Please Select a user role to login:" +
+            List<string> adminNames = new List<string>();
+            var keepRunning = true;
+            while (keepRunning)
+            {
+                var selectedRoles = "Please Select a user role to login:" +
                         "\n1. Admin" +
                         "\n2. Warehouse" +
                         "\n3. User";
 
-            Console.WriteLine(roles);
+                Console.WriteLine(selectedRoles);
 
-            Console.Write("\nEnter a number:");
-            var input = Convert.ToInt32(Console.ReadLine());
+                Console.Write("\nEnter a number:");
+                var input = Convert.ToInt32(Console.ReadLine());
 
-            switch (input)
-            {
-                case 1:
-                    AddUser(names);
-                    break;
-                case 2:
-                    WarehouseRole();
-                    break;
-                default:
-                    Console.WriteLine("Invalid input");
-                    break;
+                switch (input)
+                {
+                    case 1:
+                        AddUser(adminNames);
+                        break;
+                    case 2:
+                        WarehouseRole();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input");
+                        break;
+                }
             }
-            var question = "Please select an option:" +
+            var adminQuestion = "Please select an option:" +
                         "\n1.Update Password" +
                         "\n2.Inactivate User" +
                         "\n3.Add User" +
@@ -47,35 +50,35 @@ namespace ConsoleApp4
                         "\n8.Display Orders" +
                         "\n9.Logout";
 
-            Console.WriteLine(question);
+            Console.WriteLine(adminQuestion);
             Console.Write("Enter a number: ");
-            var answer = Convert.ToInt32(Console.ReadLine());
+            var adminAnswer = Convert.ToInt32(Console.ReadLine());
 
-            switch (answer)
+            switch (adminAnswer)
             {
                 case 1:
-                    SetNewPassword(roles);
+                    SetNewPassword(adminNames);
                     break;
                 case 2:
-                    RemoveUser(names);
+                    RemoveUser(adminNames);
                     break;
                 case 3:
-                    AddNewUser(names);
+                    AddNewUser(adminNames);
                     break;
                 case 4:
-                    DisplayAllUsers(names);
+                    DisplayAllUsers(adminNames);
                     break;
                 case 5:
-                    DisplayInactiveUsers(names);
+                    DisplayInactiveUsers(adminNames);
                     break;
                 case 6:
-                    DisplayActiveUsers(names);
+                    DisplayActiveUsers(adminNames);
                     break;
                 case 7:
-                    DisplayProducts(names);
+                    DisplayProducts(adminNames);
                     break;
                 case 8:
-                    DisplayOrders(names);
+                    DisplayOrders(adminNames);
                     break;
                 case 9:
                     Environment.Exit(0);
@@ -88,61 +91,84 @@ namespace ConsoleApp4
             Console.Write("\nEnter a number:");
             var response = Convert.ToInt32(Console.ReadLine());
         }
-        static void AddUser(List<string> userInfo)
+        public static void AddUser(List<string> adminNames)
         {
             Console.Write("Enter your username:");
             var username = Console.ReadLine();
             Console.Write("Enter your password:");
             var password = Convert.ToInt32(Console.ReadLine());
         }
-        static void SetNewPassword(string newPas)
+        public static void SetNewPassword(List<string> adminNames)
         {
             Console.Write("Update Password:");
-            var newPass = Convert.ToInt32(Console.ReadLine());
+            var newPass = Console.ReadLine();
             var password = newPass;
-            Console.WriteLine("New password:" + password.ToString());
+            Console.WriteLine("New password:" + password);
         }
-        static void RemoveUser(List<string> InactUser)
+        public static void RemoveUser(List<string> adminNames)
         {
-            Console.Write("Enter a username:");
-            var username = Console.ReadLine();
+            Console.Write("Remove Student By Name or Id");
+            var keyword = Console.ReadLine();
+
+            var ctr = 0;
+            var isFound = false;
+            foreach (var user in adminNames)
+            {
+                if (user.Contains(keyword))
+                {
+                    isFound = true;
+                    break;
+                }
+                ctr++;
+            }
+            if (isFound)
+                adminNames.RemoveAt(ctr);
+
+            DisplayAllUsers(adminNames);
         }
-        static void AddNewUser(List<string> newUser)
+        public static void AddNewUser(List<string> adminNames)
         {
             Console.WriteLine("Enter your username:");
             var username = Console.ReadLine();
             Console.WriteLine("Enter your password:");
             var password = Convert.ToInt32(Console.ReadLine());
         }
-        static void DisplayAllUsers(List<string> allUsers)
+        public static void DisplayAllUsers(List<string> adminNames)
         {
-            foreach (var user in allUsers)
+            if (adminNames.Count == 0)
+                Console.WriteLine("No Record found");
+
+            foreach (var user in adminNames)
+            {
+                Console.WriteLine("Username:" + user.Split('|')[0]);
+                Console.WriteLine("User Id:" + user.Split('|')[1]);
+
+            }
+
+            Console.WriteLine();
+        }
+        public static void DisplayInactiveUsers(List<string> adminNames)
+        {
+            foreach (var user in adminNames)
             {
                 Console.WriteLine(user);
             }
         }
-        static void DisplayInactiveUsers(List<string> inactiveUsers)
+        public static void DisplayActiveUsers(List<string> adminNames)
         {
-            foreach (var user in inactiveUsers)
+            foreach (var user in adminNames)
             {
                 Console.WriteLine(user);
             }
         }
-        static void DisplayActiveUsers(List<string> activeUsers)
-        {
-            foreach (var user in activeUsers)
-            {
-                Console.WriteLine(user);
-            }
-        }
-        static void DisplayProducts(List<string> products)
+        public static void DisplayProducts(List<string> products)
         {
             foreach (var product in products)
             {
                 Console.WriteLine(product);
             }
         }
-        static void DisplayOrders(List<string> orders)
+        public static void DisplayOrders(List<string> orders)
         {
             foreach (var order in orders)
             {

@@ -13,6 +13,7 @@ namespace ConsoleApp4
         static void Main(string[] args)
         {
             List<string> adminNames = new List<string>();
+
             var keepRunning = true;
             while (keepRunning)
             {
@@ -30,6 +31,7 @@ namespace ConsoleApp4
                 {
                     case 1:
                         AddUser(adminNames);
+                        Conditions(adminNames);
                         break;
                     case 2:
                         WarehouseRole();
@@ -39,57 +41,62 @@ namespace ConsoleApp4
                         break;
                 }
             }
-            var adminQuestion = "Please select an option:" +
-                        "\n1.Update Password" +
-                        "\n2.Inactivate User" +
-                        "\n3.Add User" +
-                        "\n4.Display All Users" +
-                        "\n5.Display Inactive Users" +
-                        "\n6.Display Active Users" +
-                        "\n7.Display Products" +
-                        "\n8.Display Orders" +
-                        "\n9.Logout";
+
+        }
+        public static void Conditions(List<string> adminNames)
+        {
+            var keepRunning = true;
+            while (keepRunning)
+            { 
+                var adminQuestion = "\nPlease select an option:" +
+            "\n1.Update Password" +
+            "\n2.Inactivate User" +
+            "\n3.Add User" +
+            "\n4.Display All Users" +
+            "\n5.Display Inactive Users" +
+            "\n6.Display Active Users" +
+            "\n7.Display Products" +
+            "\n8.Display Orders" +
+            "\n9.Logout";
 
             Console.WriteLine(adminQuestion);
             Console.Write("Enter a number: ");
             var adminAnswer = Convert.ToInt32(Console.ReadLine());
 
-            switch (adminAnswer)
-            {
-                case 1:
-                    SetNewPassword(adminNames);
-                    break;
-                case 2:
-                    RemoveUser(adminNames);
-                    break;
-                case 3:
-                    AddNewUser(adminNames);
-                    break;
-                case 4:
-                    DisplayAllUsers(adminNames);
-                    break;
-                case 5:
-                    DisplayInactiveUsers(adminNames);
-                    break;
-                case 6:
-                    DisplayActiveUsers(adminNames);
-                    break;
-                case 7:
-                    DisplayProducts(adminNames);
-                    break;
-                case 8:
-                    DisplayOrders(adminNames);
-                    break;
-                case 9:
-                    Environment.Exit(0);
-                    break;
-                default:
-                    Console.WriteLine("Invalid input");
-                    break;
+                switch (adminAnswer)
+                {
+                    case 1:
+                        SetNewPassword(adminNames);
+                        break;
+                    case 2:
+                        RemoveUser(adminNames);
+                        break;
+                    case 3:
+                        AddNewUser(adminNames);
+                        break;
+                    case 4:
+                        DisplayAllUsers(adminNames);
+                        break;
+                    case 5:
+                        DisplayInactiveUsers(adminNames);
+                        break;
+                    case 6:
+                        DisplayActiveUsers(adminNames);
+                        break;
+                    case 7:
+                        DisplayProducts(adminNames);
+                        break;
+                    case 8:
+                        DisplayOrders(adminNames);
+                        break;
+                    case 9:
+                        keepRunning = false;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input");
+                        break;
+                }
             }
-
-            Console.Write("\nEnter a number:");
-            var response = Convert.ToInt32(Console.ReadLine());
         }
         public static void AddUser(List<string> adminNames)
         {

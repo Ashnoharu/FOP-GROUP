@@ -43,7 +43,6 @@ namespace ConsoleApp4
                         break;
                 }
             }
-
         }
         public static void Conditions(List<string> adminNames)
         {

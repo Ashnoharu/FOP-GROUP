@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Services;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +15,8 @@ namespace ConsoleApp4
         static void Main(string[] args)
         {
             List<string> adminNames = new List<string>();
+            List<string> deactivatedNames = new List<string>();
+            List<string> activeNames = new List<string>();
 
             var keepRunning = true;
             while (keepRunning)
@@ -31,7 +35,8 @@ namespace ConsoleApp4
                 {
                     case 1:
                         AddUser(adminNames);
-                        Conditions(adminNames);
+                        Conditions(adminNames, deactivatedNames, activeNames);
+                        keepRunning = false;
                         break;
                     case 2:
                         WarehouseRole();
@@ -45,8 +50,9 @@ namespace ConsoleApp4
                 }
             }
         }
-        public static void Conditions(List<string> adminNames)
+        public static void Conditions(List<string> adminNames, List<string> deactivatedNames, List<string> activeNames)
         {
+            AddUser(adminNames);
             var keepRunning = true;
             while (keepRunning)
             { 
@@ -71,7 +77,8 @@ namespace ConsoleApp4
                         SetNewPassword(adminNames);
                         break;
                     case 2:
-                        DeactUser(adminNames);
+                        DeactUser(adminNames, deactivatedNames);
+                        DeactUser(adminNames, activeNames);
                         break;
                     case 3:
                         AddNewUser(adminNames);
@@ -149,7 +156,7 @@ namespace ConsoleApp4
                 adminNames[index] = "Username:" + selected + "|" + "Password:" + newPassword;
                 Console.WriteLine("Password updated for " + selected);
         }
-        public static void DeactUser(List<string> adminNames)
+        public static void DeactUser(List<string> adminNames, List<string> deactivatedNames)
         {
             if (adminNames.Count == 0)
                 Console.WriteLine("No Record found");
@@ -158,29 +165,33 @@ namespace ConsoleApp4
             {
                 Console.WriteLine();
                 Console.WriteLine("Username:" + user.Split('|')[0]);
-                Console.WriteLine("User Id:" + user.Split('|')[1]);
             }
-                Console.WriteLine("\nDEACTIVATING USERS:");
+
+            Console.WriteLine("\nDEACTIVATING USERS:");
             Console.Write("Enter a username to deactivate: ");
-            var keyword = Console.ReadLine();
+            var keyword = Console.ReadLine().ToLower();
 
-            Console.Write("Do you wish to deactivate this user? (Y/N)");
-            var answer = Console.ReadLine().Trim().ToLower();
+            int index = adminNames.FindIndex(user => user.Split('|')[0].ToLower() == keyword);
 
-            foreach (var user in adminNames)
-            {
-                if (answer == "y")
+                if (index == -1)
                 {
-                    Console.WriteLine("\nDeactivated Username:" + user.Split('|')[0]);
-                    var username = Console.ReadLine();
-                    adminNames.Add(username);
-                    Console.WriteLine("User has been deactivated");
+                    Console.WriteLine("No Record found");
                 }
                 else
                 {
-                    Console.WriteLine("User has not been deactivated");
+                    Console.Write("Do you wish to deactivate this user? (Y/N): ");
+                    string answer = Console.ReadLine().Trim().ToLower();
+
+                    if (answer == "y")
+                    {
+                        deactivatedNames.Add(adminNames[index]);
+                        adminNames.RemoveAt(index);
+                    }
+                    else
+                    {
+                        Console.WriteLine("User has not been deactivated");
+                    }
                 }
-            }
         }
         public static void AddNewUser(List<string> adminNames)
         {

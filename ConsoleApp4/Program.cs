@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Runtime.Remoting.Services;
 using System.Text;
@@ -150,24 +151,36 @@ namespace ConsoleApp4
         }
         public static void DeactUser(List<string> adminNames)
         {
-            Console.Write("Remove Student By Name or Id: ");
-            var keyword = Console.ReadLine();
+            if (adminNames.Count == 0)
+                Console.WriteLine("No Record found");
 
-            var ctr = 0;
-            var isFound = false;
             foreach (var user in adminNames)
             {
-                if (user.Contains(keyword))
-                {
-                    isFound = true;
-                    break;
-                }
-                ctr++;
+                Console.WriteLine();
+                Console.WriteLine("Username:" + user.Split('|')[0]);
+                Console.WriteLine("User Id:" + user.Split('|')[1]);
             }
-            if (isFound)
-                adminNames.RemoveAt(ctr);
+                Console.WriteLine("\nDEACTIVATING USERS:");
+            Console.Write("Enter a username to deactivate: ");
+            var keyword = Console.ReadLine();
 
-            DisplayAllUsers(adminNames);
+            Console.Write("Do you wish to deactivate this user? (Y/N)");
+            var answer = Console.ReadLine().Trim().ToLower();
+
+            foreach (var user in adminNames)
+            {
+                if (answer == "y")
+                {
+                    Console.WriteLine("\nDeactivated Username:" + user.Split('|')[0]);
+                    var username = Console.ReadLine();
+                    adminNames.Add(username);
+                    Console.WriteLine("User has been deactivated");
+                }
+                else
+                {
+                    Console.WriteLine("User has not been deactivated");
+                }
+            }
         }
         public static void AddNewUser(List<string> adminNames)
         {
@@ -184,9 +197,17 @@ namespace ConsoleApp4
 
             foreach (var user in adminNames)
             {
-                Console.WriteLine();
-                Console.WriteLine("Username:" + user.Split('|')[0]);
-                Console.WriteLine("User Id:" + user.Split('|')[1]);
+                if (user.Contains("Deactivated"))
+                {
+                    Console.WriteLine("\nDeactivated Username:" + user.Split('|')[0]);
+                    Console.WriteLine("Deactivated User Id:" + user.Split('|')[1]);
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Username:" + user.Split('|')[0]);
+                    Console.WriteLine("User Id:" + user.Split('|')[1]);
+                }
             }
         }
         public static void DisplayInactiveUsers(List<string> adminNames)

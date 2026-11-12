@@ -36,7 +36,7 @@ namespace ConsoleApp4
                         WarehouseRole();
                         break;
                     case 3:
-                        Console.WriteLine("User role selected");
+                        User(adminNames);
                         break;
                     default:
                         Console.WriteLine("Invalid input");
@@ -71,7 +71,7 @@ namespace ConsoleApp4
                         SetNewPassword(adminNames);
                         break;
                     case 2:
-                        RemoveUser(adminNames);
+                        DeactUser(adminNames);
                         break;
                     case 3:
                         AddNewUser(adminNames);
@@ -112,6 +112,18 @@ namespace ConsoleApp4
         }
         public static void SetNewPassword(List<string> adminNames)
         {
+            if (adminNames.Count == 0)
+                Console.WriteLine("No Record found");
+
+            foreach (var user in adminNames)
+            {
+                for (int i = 0; i < adminNames.Count; i++)
+                { 
+                    Console.WriteLine("\nAll Accounts");
+                    Console.WriteLine($"{i}. Username:" + user.Split('|')[0]);
+                }
+
+            }
             Console.Write("Search a user you want to change password: ");
             var selected = Console.ReadLine();
 
@@ -137,7 +149,7 @@ namespace ConsoleApp4
                 adminNames[index] = "Username:" + selected + "|" + "Password:" + newPassword;
                 Console.WriteLine("Password updated for " + selected);
         }
-        public static void RemoveUser(List<string> adminNames)
+        public static void DeactUser(List<string> adminNames)
         {
             Console.Write("Remove Student By Name or Id: ");
             var keyword = Console.ReadLine();
@@ -265,14 +277,27 @@ namespace ConsoleApp4
             Console.WriteLine(optionB);
 
         }
-
-        static void WarehouseUser()
+        public static void WarehouseUser()
         {
             Console.Write("Enter your username:");
             var username = Console.ReadLine();
             Console.Write("Enter your password:");
             var password = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine();
+        }
+        public static void User(List<string> adminNames)
+        {
+            if (adminNames.Count == 0)
+                Console.WriteLine("No Record found");
+
+            foreach (var user in adminNames)
+            {
+                for(int i = 0; i < adminNames.Count; i++)
+                {
+                    Console.WriteLine("\nAll Accounts");
+                    Console.WriteLine($"{i}. Username:" + user.Split('|')[0]);
+                }
+            }
         }
     }
 }

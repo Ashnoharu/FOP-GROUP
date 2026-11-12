@@ -52,7 +52,6 @@ namespace ConsoleApp4
         }
         public static void Conditions(List<string> adminNames, List<string> deactivatedNames, List<string> activeNames)
         {
-            AddUser(adminNames);
             var keepRunning = true;
             while (keepRunning)
             { 
@@ -84,7 +83,7 @@ namespace ConsoleApp4
                         AddNewUser(adminNames);
                         break;
                     case 4:
-                        DisplayAllUsers(adminNames);
+                        DisplayAllUsers(adminNames, deactivatedNames);
                         break;
                     case 5:
                         DisplayInactiveUsers(adminNames);
@@ -174,9 +173,7 @@ namespace ConsoleApp4
             int index = adminNames.FindIndex(user => user.Split('|')[0].ToLower() == keyword);
 
                 if (index == -1)
-                {
                     Console.WriteLine("No Record found");
-                }
                 else
                 {
                     Console.Write("Do you wish to deactivate this user? (Y/N): ");
@@ -188,9 +185,7 @@ namespace ConsoleApp4
                         adminNames.RemoveAt(index);
                     }
                     else
-                    {
                         Console.WriteLine("User has not been deactivated");
-                    }
                 }
         }
         public static void AddNewUser(List<string> adminNames)
@@ -201,12 +196,12 @@ namespace ConsoleApp4
             var password = Console.ReadLine();
             adminNames.Add(username + "|" + password);
         }
-        public static void DisplayAllUsers(List<string> adminNames)
+        public static void DisplayAllUsers(List<string> adminNames, List<string> deactivatedNames)
         {
             if (adminNames.Count == 0)
                 Console.WriteLine("No Record found");
 
-            foreach (var user in adminNames)
+            foreach (var user in adminNames.Concat(deactivatedNames))
             {
                 if (user.Contains("Deactivated"))
                 {
@@ -221,9 +216,9 @@ namespace ConsoleApp4
                 }
             }
         }
-        public static void DisplayInactiveUsers(List<string> adminNames)
+        public static void DisplayInactiveUsers(List<string> deactivatedNames)
         {
-            foreach (var user in adminNames)
+            foreach (var user in deactivatedNames)
             {
                 Console.WriteLine("\nUsername:" + user.Split('|')[0]);
                 Console.WriteLine("User Id:" + user.Split('|')[1]);

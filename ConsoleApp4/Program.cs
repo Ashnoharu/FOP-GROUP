@@ -103,7 +103,8 @@ namespace ConsoleApp4
             Console.Write("Enter your username:");
             var username = Console.ReadLine();
             Console.Write("Enter your password:");
-            var password = Convert.ToInt32(Console.ReadLine());
+            var password = Console.ReadLine();
+            adminNames.Add("Username:" + username + "|" + "Password:" + password);
         }
         public static void SetNewPassword(List<string> adminNames)
         {
@@ -138,7 +139,8 @@ namespace ConsoleApp4
             Console.WriteLine("Enter your username:");
             var username = Console.ReadLine();
             Console.WriteLine("Enter your password:");
-            var password = Convert.ToInt32(Console.ReadLine());
+            var password = Console.ReadLine();
+            adminNames.Add(username + "|" + password);
         }
         public static void DisplayAllUsers(List<string> adminNames)
         {
@@ -147,9 +149,8 @@ namespace ConsoleApp4
 
             foreach (var user in adminNames)
             {
-                Console.WriteLine("Username:" + user.Split('|')[0]);
+                Console.WriteLine("\nUsername:" + user.Split('|')[0]);
                 Console.WriteLine("User Id:" + user.Split('|')[1]);
-
             }
 
             Console.WriteLine();
@@ -163,9 +164,13 @@ namespace ConsoleApp4
         }
         public static void DisplayActiveUsers(List<string> adminNames)
         {
+            if (adminNames.Count == 0)
+                Console.WriteLine("No Record found");
+
             foreach (var user in adminNames)
             {
-                Console.WriteLine(user);
+                Console.WriteLine("\nUsername:" + user.Split('|')[0]);
+                Console.WriteLine("User Id:" + user.Split('|')[1]);
             }
         }
         public static void DisplayProducts(List<string> products)

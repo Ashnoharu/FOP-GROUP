@@ -9,7 +9,6 @@ namespace ConsoleApp4
 {
     internal class Program
     {
-
         static void Main(string[] args)
         {
             List<string> adminNames = new List<string>();
@@ -35,6 +34,9 @@ namespace ConsoleApp4
                         break;
                     case 2:
                         WarehouseRole();
+                        break;
+                    case 3:
+                        Console.WriteLine("User role selected");
                         break;
                     default:
                         Console.WriteLine("Invalid input");
@@ -100,25 +102,40 @@ namespace ConsoleApp4
         }
         public static void AddUser(List<string> adminNames)
         {
-            Console.Write("Enter your username:");
+            Console.Write("Enter your username: ");
             var username = Console.ReadLine();
-            Console.Write("Enter your password:");
+            Console.Write("Enter your password: ");
             var password = Console.ReadLine();
+
             adminNames.Add("Username:" + username + "|" + "Password:" + password);
 
         }
         public static void SetNewPassword(List<string> adminNames)
         {
-            AddUser(adminNames);
             Console.Write("Search a user you want to change password: ");
-            var keyword = Console.ReadLine();
-            var newList = adminNames.Where(x => x.Contains(keyword)).ToList();
-            DisplayAllUsers(newList);
+            var selected = Console.ReadLine();
 
-            Console.Write("Update Password:");
-            var newPass = Console.ReadLine();
-            var password = newPass;
-            Console.WriteLine("New password:" + password);
+            int index = adminNames.FindIndex(x => x.StartsWith("Username:" + selected + "|"));
+
+            if (index == -1)
+            {
+                Console.WriteLine("User not found.");
+                return;
+            }
+
+            Console.Write("Enter new password: ");
+            var newPassword = Console.ReadLine();
+            Console.Write("Confirm new password: ");
+            var confirmPassword = Console.ReadLine();
+
+            if (newPassword != confirmPassword)
+            {
+                Console.WriteLine("Passwords do not match.");
+                return;
+            }
+            else
+                adminNames[index] = "Username:" + selected + "|" + "Password:" + newPassword;
+                Console.WriteLine("Password updated for " + selected);
         }
         public static void RemoveUser(List<string> adminNames)
         {
@@ -143,9 +160,9 @@ namespace ConsoleApp4
         }
         public static void AddNewUser(List<string> adminNames)
         {
-            Console.WriteLine("Enter your username:");
+            Console.WriteLine("Enter your username: ");
             var username = Console.ReadLine();
-            Console.WriteLine("Enter your password:");
+            Console.WriteLine("Enter your password: ");
             var password = Console.ReadLine();
             adminNames.Add(username + "|" + password);
         }
@@ -194,7 +211,7 @@ namespace ConsoleApp4
                 Console.WriteLine(order);
             }
         }
-        static void WarehouseRole()
+        public static void WarehouseRole()
         {
             Console.Write("Pick a Number:");
             var optionNo = Convert.ToInt32(Console.ReadLine());

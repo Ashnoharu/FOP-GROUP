@@ -151,6 +151,40 @@ namespace ConsoleApp4
         }
         static void WarehouseRole()
         {
+            Console.Write("Pick a Number:");
+            var optionNo = Convert.ToInt32(Console.ReadLine());
+
+            switch (optionNo)
+            {
+                case 1:
+                    WarehouseUser();
+                    break;
+                default:
+                    Console.WriteLine("Invalid input");
+                    break;
+            }
+
+            var option = "Please select an option" +
+            "\n1.Add Products" +
+            "\n2.Display Products" +
+            "\n3.Logout";
+            Console.WriteLine(option);
+            Console.Write("Choose an Option:");
+            var whatOption = Convert.ToInt32(Console.ReadLine());
+            switch (whatOption)
+            {
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+                default:
+                    Console.WriteLine("Invalid Input");
+                    break;
+            }
+            Console.WriteLine();
+
             Console.Write("Please enter the number of products you want to add: ");
             var productsNum = Convert.ToInt32(Console.ReadLine());
 
@@ -163,26 +197,20 @@ namespace ConsoleApp4
                 var productQuantity = Convert.ToInt32(Console.ReadLine());
             }
 
-            var option = "Please select an option" +
+            var optionB = "Please select an option" +
                         "\n1.Add Products" +
                         "\n2.Display Products";
-            Console.WriteLine(option);
+            Console.WriteLine(optionB);
 
-            Console.Write("Pick a Number: ");
-            var optionNo = Convert.ToInt32(Console.ReadLine());
+        }
 
-            switch (optionNo)
-            {
-                case 1:
-                    Console.WriteLine("WORK IN PROGRESS");
-                    break;
-                case 2:
-                    Console.WriteLine("TESTING");
-                    break;
-                default:
-                    Console.WriteLine("Invalid input");
-                    break;
-            }
+        static void WarehouseUser()
+        {
+            Console.Write("Enter your username:");
+            var username = Console.ReadLine();
+            Console.Write("Enter your password:");
+            var password = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine();
         }
     }
 }

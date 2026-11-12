@@ -60,7 +60,7 @@ namespace ConsoleApp4
             "\n9.Logout";
 
             Console.WriteLine(adminQuestion);
-            Console.Write("Enter a number: ");
+            Console.Write("\nEnter a number: ");
             var adminAnswer = Convert.ToInt32(Console.ReadLine());
 
                 switch (adminAnswer)
@@ -105,9 +105,16 @@ namespace ConsoleApp4
             Console.Write("Enter your password:");
             var password = Console.ReadLine();
             adminNames.Add("Username:" + username + "|" + "Password:" + password);
+
         }
         public static void SetNewPassword(List<string> adminNames)
         {
+            AddUser(adminNames);
+            Console.Write("Search a user you want to change password: ");
+            var keyword = Console.ReadLine();
+            var newList = adminNames.Where(x => x.Contains(keyword)).ToList();
+            DisplayAllUsers(newList);
+
             Console.Write("Update Password:");
             var newPass = Console.ReadLine();
             var password = newPass;
@@ -115,7 +122,7 @@ namespace ConsoleApp4
         }
         public static void RemoveUser(List<string> adminNames)
         {
-            Console.Write("Remove Student By Name or Id");
+            Console.Write("Remove Student By Name or Id: ");
             var keyword = Console.ReadLine();
 
             var ctr = 0;
@@ -149,17 +156,17 @@ namespace ConsoleApp4
 
             foreach (var user in adminNames)
             {
-                Console.WriteLine("\nUsername:" + user.Split('|')[0]);
+                Console.WriteLine();
+                Console.WriteLine("Username:" + user.Split('|')[0]);
                 Console.WriteLine("User Id:" + user.Split('|')[1]);
             }
-
-            Console.WriteLine();
         }
         public static void DisplayInactiveUsers(List<string> adminNames)
         {
             foreach (var user in adminNames)
             {
-                Console.WriteLine(user);
+                Console.WriteLine("\nUsername:" + user.Split('|')[0]);
+                Console.WriteLine("User Id:" + user.Split('|')[1]);
             }
         }
         public static void DisplayActiveUsers(List<string> adminNames)

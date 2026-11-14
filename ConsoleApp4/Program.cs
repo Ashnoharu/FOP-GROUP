@@ -34,9 +34,11 @@ namespace FOPGROUPMAIN
                         keepRunning = false;
                         break;
                     case 2:
+                        WarehouseConditions(users, products, item, orders);
                         keepRunning = false;
                         break;
                     case 3:
+                        UserConditions(users, products, item, orders);
                         keepRunning = false;
                         break;
                     default:
@@ -101,7 +103,7 @@ namespace FOPGROUPMAIN
                 }
             }
         }
-        public static void WarehouseConditions(List<Warehouse> products)
+        public static void WarehouseConditions(List<User> users, List<Warehouse> products, List<string> item, List<string> orders)
         {
             var keepRunning = true;
             while (keepRunning)
@@ -122,6 +124,33 @@ namespace FOPGROUPMAIN
                         break;
                     case 2:
                         Warehouse.DisplayWarehouse();
+                        break;
+                    case 3:
+                        keepRunning = false;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input");
+                        break;
+                }
+            }
+        }
+        public static void UserConditions(List<User> users, List<Warehouse> products, List<string> item, List<string> orders)
+        {
+            var keepRunning = true;
+            while (keepRunning)
+            {
+                var selectedOrder = "Please Select a user role to login:" +
+                                    "\n1. Place Order" +
+                                    "\n2. Display Orders" +
+                                    "\n3. Logout";
+                Console.WriteLine(selectedOrder);
+                Console.Write("\nEnter a number:");
+                var input = Convert.ToInt32(Console.ReadLine());
+                switch (input)
+                {
+                    case 1:
+                        break;
+                    case 2:
                         break;
                     case 3:
                         keepRunning = false;

@@ -47,7 +47,6 @@ namespace FOPGROUPMAIN
                 }
             }
         }
-
         public static void AdminConditions(List<User> users, List<Warehouse> products, List<string> item, List<string> orders)
         {
             var keepRunning = true;

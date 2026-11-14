@@ -8,8 +8,6 @@ namespace FOPGROUPMAIN
         public string Username { get; set; }
         public string Password { get; set; }
         public bool IsActive { get; set; } = true;
-        public string ProductName { get; set; }
-        public string Quantity { get; set; }
 
         public static void AddUser(List<User> users)
         {
@@ -132,7 +130,7 @@ namespace FOPGROUPMAIN
             }
         }
 
-        public static void DisplayProducts(List<string> products)
+        public static void DisplayProducts(List<Warehouse> products)
         {
             foreach (var product in products)
             {
@@ -147,20 +145,26 @@ namespace FOPGROUPMAIN
                 Console.WriteLine(order);
             }
         }
+    } 
+}
+public class Warehouse
+{
+    public string ProductName { get; set; }
+    public int Quantity { get; set; }
 
-        public static void WarehouseProduct()
+    public static void AddProduct(List<Warehouse> products)
         {
 
-            var option = "Please select an option" +
+            var option = "\nPlease select an option" +
                          "\n1.Add Products" +
                          "\n2.Display Products" +
                          "\n3.Logout";
 
             Console.WriteLine(option);
             Console.Write("Choose an Option:");
-            var whatOption = Convert.ToInt32(Console.ReadLine());
+            var input = Convert.ToInt32(Console.ReadLine());
 
-            switch (whatOption)
+            switch (input)
             {
                 case 1:
 
@@ -177,22 +181,19 @@ namespace FOPGROUPMAIN
             Console.Write("Please enter the number of products you want to add: ");
             var productsNum = Convert.ToInt32(Console.ReadLine());
 
-            for (int i = 0; i < productsNum; i++)
-            {
-                Console.Write("Please enter the name of the product:");
-                var productName = Console.ReadLine();
+            Console.Write("Please enter the name of the product:");
+            var productName = Console.ReadLine();
 
-                Console.Write("Please enter the quantity of the product:");
-                var productQuantity = Convert.ToInt32(Console.ReadLine());
-            }
+            Console.Write("Please enter the quantity of the product:");
+            var productQuantity = Convert.ToInt32(Console.ReadLine());
 
-            var optionB = "Please select an option" +
-                        "\n1.Add Products" +
-                        "\n2.Display Products";
-            Console.WriteLine(optionB);
+            Warehouse Neworders = new Warehouse();
+            Neworders.ProductName = productName;
+            Neworders.Quantity = productQuantity;
+            products.Add(Neworders);
         }
 
-        public static void WarehouseUser()
+        public static void DisplayWarehouse()
         {
             Console.Write("Enter your username:");
             var username = Console.ReadLine();
@@ -201,16 +202,15 @@ namespace FOPGROUPMAIN
             Console.WriteLine();
         }
 
-        public static void ShowUserInfo(List<User> users)
+        public static void UserInfo(List<Warehouse> warehouse)
         {
-            if (users.Count == 0)
+            if (warehouse.Count == 0)
                 Console.WriteLine("No Record found");
 
-            Console.WriteLine("\nAll Accounts");
-            for (int i = 0; i < users.Count; i++)
+            Console.WriteLine("\nACCOUNTS");
+            for (int i = 0; i < warehouse.Count; i++)
             {
-                Console.WriteLine($"{i}. Username: " + users[i].Username);
+                Console.WriteLine($"{i}. Username: " + warehouse[i].ProductName);
             }
         }
-    }
 }

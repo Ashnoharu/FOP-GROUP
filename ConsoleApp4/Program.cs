@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Net.Http.Headers;
 
 namespace FOPGROUPMAIN
 {
@@ -8,7 +10,8 @@ namespace FOPGROUPMAIN
         static void Main(string[] args)
         {
             List<User> users = new List<User>();
-            List<string> products = new List<string>();
+            List<Warehouse> products = new List<Warehouse>();
+            List<string> item = new List<string>();
             List<string> orders = new List<string>();
 
             var keepRunning = true;
@@ -27,15 +30,13 @@ namespace FOPGROUPMAIN
                 {
                     case 1:
                         User.AddUser(users);
-                        AdminConditions(users, products, orders);
+                        AdminConditions(users,products, item, orders);
                         keepRunning = false;
                         break;
                     case 2:
-                        User.WarehouseProduct();
                         keepRunning = false;
                         break;
                     case 3:
-                        User.ShowUserInfo(users);
                         keepRunning = false;
                         break;
                     default:
@@ -45,7 +46,7 @@ namespace FOPGROUPMAIN
             }
         }
 
-        public static void AdminConditions(List<User> users, List<string> products, List<string> orders)
+        public static void AdminConditions(List<User> users, List<Warehouse> products, List<string> item, List<string> orders)
         {
             var keepRunning = true;
             while (keepRunning)
@@ -100,7 +101,7 @@ namespace FOPGROUPMAIN
                 }
             }
         }
-        public static void WarehouseConditions(List<string> products)
+        public static void WarehouseConditions(List<Warehouse> products)
         {
             var keepRunning = true;
             while (keepRunning)
@@ -117,8 +118,10 @@ namespace FOPGROUPMAIN
                 switch (input)
                 {
                     case 1:
+                        Warehouse.AddProduct(products);
                         break;
                     case 2:
+                        Warehouse.DisplayWarehouse();
                         break;
                     case 3:
                         keepRunning = false;

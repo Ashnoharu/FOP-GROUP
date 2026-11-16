@@ -139,9 +139,9 @@ namespace FOPGROUPMAIN
             }
         }
 
-        public static void DisplayOrders(List<Warehouse> warehouseUser)
+        public static void DisplayOrders(List<Info> userOrders)
         {
-            foreach (var order in warehouseUser)
+            foreach (var order in userOrders)
             {
                 Console.WriteLine(order);
             }
@@ -160,42 +160,64 @@ public class Warehouse
 
         for (int i = 0; i < productsNum; i++)
         {
-            Console.Write("Please enter the name of the product:");
+            Console.Write("\nPlease enter the name of the product:");
             var productName = Console.ReadLine();
 
             Console.Write("Please enter the quantity of the product:");
             var productQuantity = Convert.ToInt32(Console.ReadLine());
 
-            Warehouse Neworders = new Warehouse();
-            Neworders.ProductName = productName;
-            Neworders.Quantity = productQuantity;
-            warehouseUser.Add(Neworders);
+            Warehouse orders = new Warehouse();
+            orders.ProductName = productName;
+            orders.Quantity = productQuantity;
+            warehouseUser.Add(orders);
         }
     }
 
         public static void DisplayWarehouse(List <Warehouse> warehouseUser, List<User> users)
         {
+            if (warehouseUser.Count == 0)
+            Console.WriteLine("No Record found");
+
             foreach (var orders in warehouseUser)
             {
-            Console.WriteLine();
-            Console.WriteLine("Product name: " + orders.ProductName);
-            Console.WriteLine("Quantity: " + orders.Quantity);
+                Console.WriteLine("\nProduct name: " + orders.ProductName);
+                Console.WriteLine("Quantity: " + orders.Quantity);
             }
         }
 }
 public class Info 
 {
-    public static void UserInfo(List<Warehouse> warehouseUser, List<User> users)
+    public string storage { get; set; } 
+    public static void UserInfo(List<Warehouse> warehouseUser, List<User> users, List<Info> userOrders)
     {
-        if (warehouseUser.Count == 0)
-            Console.WriteLine("No Record found");
-        if (users.Count == 0)
-            Console.WriteLine("No Record found");
-
-        Console.WriteLine("\nACCOUNTS");
-        for (int i = 0; i < warehouseUser.Count; i++)
+        Console.WriteLine("\nPRODUCTS");
+        for (int i = 0; i < userOrders.Count; i++)
         {
-            Console.WriteLine($"{i}. Username: " + warehouseUser[i].ProductName);
+            Console.WriteLine($"{i}. Product Name: " + warehouseUser[i].ProductName);
+            Console.WriteLine($"Quantity: " + warehouseUser[i].Quantity);
+        }
+        Console.Write("\nPlease enter the number of the product you want to order: ");
+        var selected = Convert.ToInt32(Console.ReadLine());
+        Console.Write("\nPlease enter the quantity of the product you want to order: ");
+        var quantity = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine("Order details");
+        Console.WriteLine("Product: " + warehouseUser[selected].ProductName);
+        Console.WriteLine("Quantity: " + quantity);
+
+        Info orders = new Info();
+        orders.storage = warehouseUser[selected].ProductName;
+        orders.storage += quantity;
+        userOrders.Add(orders);
+    }
+    public static void DisplayUserOrders(List<Info> userOrders)
+    {
+        if (userOrders.Count == 0)
+            Console.WriteLine("No Record found");
+        foreach (var orders in userOrders)
+        {
+            Console.WriteLine("\nProduct name: " + orders.storage);
+            Console.WriteLine("Quantity: " + orders.storage );
         }
     }
 }

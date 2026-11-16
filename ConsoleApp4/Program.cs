@@ -11,11 +11,12 @@ namespace FOPGROUPMAIN
         {
             List<User> users = new List<User>();
             List<Warehouse> warehouseUser = new List<Warehouse>();
-
+            List<Info> userOrders = new List<Info>();  
+            
             Console.WriteLine("SELECTION MENU");
-            Login(users, warehouseUser);
+            Login(users, warehouseUser, userOrders);
         }
-        public static void Login(List<User> users, List<Warehouse> warehouseUser)
+        public static void Login(List<User> users, List<Warehouse> warehouseUser, List<Info> userOrders)
         {
             var keepRunning = true;
             while (keepRunning)
@@ -33,16 +34,16 @@ namespace FOPGROUPMAIN
                 {
                     case 1:
                         User.AddUser(users, warehouseUser);
-                        AdminConditions(users, warehouseUser);
+                        AdminConditions(users, warehouseUser, userOrders);
                         keepRunning = false;
                         break;
                     case 2:
                         User.AddUser(users, warehouseUser);
-                        WarehouseConditions(users, warehouseUser);
+                        WarehouseConditions(users, warehouseUser, userOrders);
                         keepRunning = false;
                         break;
                     case 3:
-                        UserConditions(users, warehouseUser);
+                        UserConditions(users, warehouseUser, userOrders);
                         keepRunning = false;
                         break;
                     default:
@@ -51,7 +52,7 @@ namespace FOPGROUPMAIN
                 }
             }
         }
-        public static void AdminConditions(List<User> users, List<Warehouse> warehouseUser)
+        public static void AdminConditions(List<User> users, List<Warehouse> warehouseUser, List<Info> userOrders)
         {
             var keepRunningAdmin = true;
             while (keepRunningAdmin)
@@ -95,12 +96,12 @@ namespace FOPGROUPMAIN
                         User.DisplayProducts(warehouseUser);
                         break;
                     case 8:
-                        User.DisplayOrders(warehouseUser);
+                        User.DisplayOrders(userOrders);
                         break;
                     case 9:
                         Console.WriteLine("Logging out...");
                         keepRunningAdmin = false;
-                        Login(users, warehouseUser);
+                        Login(users, warehouseUser, userOrders);
                         break;
                     default:
                         Console.WriteLine("Invalid input");
@@ -108,7 +109,7 @@ namespace FOPGROUPMAIN
                 }
             }
         }
-        public static void WarehouseConditions(List<User> users, List<Warehouse> warehouseUser)
+        public static void WarehouseConditions(List<User> users, List<Warehouse> warehouseUser, List<Info> userOrders)
         {
             var keepRunningWarehouse = true;
             while (keepRunningWarehouse)
@@ -133,7 +134,7 @@ namespace FOPGROUPMAIN
                     case 3:
                         Console.WriteLine("Logging out...");
                         keepRunningWarehouse = false;
-                        Login(users, warehouseUser);
+                        Login(users, warehouseUser, userOrders);
                         break;
                     default:
                         Console.WriteLine("Invalid input");
@@ -141,7 +142,7 @@ namespace FOPGROUPMAIN
                 }
             }
         }
-        public static void UserConditions(List<User> users, List<Warehouse> warehouseUser)
+        public static void UserConditions(List<User> users, List<Warehouse> warehouseUser, List<Info> userOrders)
         {
             var keepRunningUser = true;
             while (keepRunningUser)
@@ -162,7 +163,7 @@ namespace FOPGROUPMAIN
                     case 3:
                         Console.WriteLine("Logging out...");
                         keepRunningUser = false;
-                        Login(users, warehouseUser);
+                        Login(users, warehouseUser, userOrders);
                         break;
                     default:
                         Console.WriteLine("Invalid input");

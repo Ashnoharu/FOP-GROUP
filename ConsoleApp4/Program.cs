@@ -10,7 +10,7 @@ namespace FOPGROUPMAIN
         static void Main(string[] args)
         {
             List<User> users = new List<User>();
-            List<Warehouse> products = new List<Warehouse>();
+            List<Warehouse> warehouseUser = new List<Warehouse>();
             List<string> item = new List<string>();
             List<string> orders = new List<string>();
 
@@ -29,16 +29,17 @@ namespace FOPGROUPMAIN
                 switch (input)
                 {
                     case 1:
-                        User.AddUser(users);
-                        AdminConditions(users,products, item, orders);
+                        User.AddUser(users, warehouseUser);
+                        AdminConditions(users, warehouseUser);
                         keepRunning = false;
                         break;
                     case 2:
-                        WarehouseConditions(users, products, item, orders);
+                        User.AddUser(users, warehouseUser);
+                        WarehouseConditions(warehouseUser, users);
                         keepRunning = false;
                         break;
                     case 3:
-                        UserConditions(users, products, item, orders);
+                        UserConditions(users, warehouseUser, item, orders);
                         keepRunning = false;
                         break;
                     default:
@@ -47,7 +48,7 @@ namespace FOPGROUPMAIN
                 }
             }
         }
-        public static void AdminConditions(List<User> users, List<Warehouse> products, List<string> item, List<string> orders)
+        public static void AdminConditions(List<User> users, List<Warehouse> warehouseUser)
         {
             var keepRunning = true;
             while (keepRunning)
@@ -76,7 +77,7 @@ namespace FOPGROUPMAIN
                         User.DeactUser(users);
                         break;
                     case 3:
-                        User.AddUser(users);
+                        User.AddUser(users, warehouseUser);
                         break;
                     case 4:
                         User.DisplayAllUsers(users);
@@ -88,12 +89,13 @@ namespace FOPGROUPMAIN
                         User.DisplayActiveUsers(users);
                         break;
                     case 7:
-                        User.DisplayProducts(products);
+                        User.DisplayProducts(warehouseUser);
                         break;
                     case 8:
-                        User.DisplayOrders(orders);
+                        User.DisplayOrders(warehouseUser);
                         break;
                     case 9:
+                        Console.WriteLine("Logging out...");
                         keepRunning = false;
                         break;
                     default:
@@ -102,7 +104,7 @@ namespace FOPGROUPMAIN
                 }
             }
         }
-        public static void WarehouseConditions(List<User> users, List<Warehouse> products, List<string> item, List<string> orders)
+        public static void WarehouseConditions(List<Warehouse> warehouseUser, List<User> users)
         {
             var keepRunning = true;
             while (keepRunning)
@@ -119,12 +121,13 @@ namespace FOPGROUPMAIN
                 switch (input)
                 {
                     case 1:
-                        Warehouse.AddProduct(products);
+                        Warehouse.AddProduct(warehouseUser, users);
                         break;
                     case 2:
-                        Warehouse.DisplayWarehouse();
+                        Warehouse.DisplayWarehouse(warehouseUser, users);
                         break;
                     case 3:
+                        Console.WriteLine("Logging out...");
                         keepRunning = false;
                         break;
                     default:
@@ -152,6 +155,7 @@ namespace FOPGROUPMAIN
                     case 2:
                         break;
                     case 3:
+                        Console.WriteLine("Logging out...");
                         keepRunning = false;
                         break;
                     default:

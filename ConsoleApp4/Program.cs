@@ -11,13 +11,16 @@ namespace FOPGROUPMAIN
         {
             List<User> users = new List<User>();
             List<Warehouse> warehouseUser = new List<Warehouse>();
-            List<string> item = new List<string>();
-            List<string> orders = new List<string>();
 
+            Console.WriteLine("SELECTION MENU");
+            Login(users, warehouseUser);
+        }
+        public static void Login(List<User> users, List<Warehouse> warehouseUser)
+        {
             var keepRunning = true;
             while (keepRunning)
             {
-                var selectedRoles = "Please Select a user role to login:" +
+                var selectedRoles = "\nPlease Select a user role to login:" +
                                     "\n1. Admin" +
                                     "\n2. Warehouse" +
                                     "\n3. User";
@@ -39,7 +42,7 @@ namespace FOPGROUPMAIN
                         keepRunning = false;
                         break;
                     case 3:
-                        UserConditions(users, warehouseUser, item, orders);
+                        UserConditions(users, warehouseUser);
                         keepRunning = false;
                         break;
                     default:
@@ -50,8 +53,8 @@ namespace FOPGROUPMAIN
         }
         public static void AdminConditions(List<User> users, List<Warehouse> warehouseUser)
         {
-            var keepRunning = true;
-            while (keepRunning)
+            var keepRunningAdmin = true;
+            while (keepRunningAdmin)
             {
                 var adminQuestion = "\nPlease select an option:" +
                                     "\n1.Update Password" +
@@ -96,7 +99,8 @@ namespace FOPGROUPMAIN
                         break;
                     case 9:
                         Console.WriteLine("Logging out...");
-                        keepRunning = false;
+                        keepRunningAdmin = false;
+                        Login(users, warehouseUser);
                         break;
                     default:
                         Console.WriteLine("Invalid input");
@@ -106,10 +110,10 @@ namespace FOPGROUPMAIN
         }
         public static void WarehouseConditions(List<Warehouse> warehouseUser, List<User> users)
         {
-            var keepRunning = true;
-            while (keepRunning)
+            var keepRunningWarehouse = true;
+            while (keepRunningWarehouse)
             {
-                var selectedOrder = "Please Select a user role to login:" +
+                var selectedOrder = "\nPlease select an option:" +
                                     "\n1. Add Products" +
                                     "\n2. Display Products" +
                                     "\n3. Logout";
@@ -128,7 +132,8 @@ namespace FOPGROUPMAIN
                         break;
                     case 3:
                         Console.WriteLine("Logging out...");
-                        keepRunning = false;
+                        keepRunningWarehouse = false;
+                        Login(users, warehouseUser);
                         break;
                     default:
                         Console.WriteLine("Invalid input");
@@ -136,12 +141,12 @@ namespace FOPGROUPMAIN
                 }
             }
         }
-        public static void UserConditions(List<User> users, List<Warehouse> products, List<string> item, List<string> orders)
+        public static void UserConditions(List<User> users, List<Warehouse> warehouseUser)
         {
-            var keepRunning = true;
-            while (keepRunning)
+            var keepRunningUser = true;
+            while (keepRunningUser)
             {
-                var selectedOrder = "Please Select a user role to login:" +
+                var selectedOrder = "\nPlease select an option:" +
                                     "\n1. Place Order" +
                                     "\n2. Display Orders" +
                                     "\n3. Logout";
@@ -156,7 +161,8 @@ namespace FOPGROUPMAIN
                         break;
                     case 3:
                         Console.WriteLine("Logging out...");
-                        keepRunning = false;
+                        keepRunningUser = false;
+                        Login(users, warehouseUser);
                         break;
                     default:
                         Console.WriteLine("Invalid input");

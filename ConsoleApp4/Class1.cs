@@ -155,30 +155,6 @@ public class Warehouse
 
     public static void AddProduct(List<Warehouse> warehouseUser, List<User> users)
     {
-
-        if (warehouseUser.Count == 0)
-        {
-            Console.WriteLine("No Record found");
-            return;
-        }
-        Console.WriteLine("\nACCOUNTS");
-
-        for (int i = 0; i < users.Count; i++)
-        {
-            Console.WriteLine($"{i}. Username: " + users[i].Username);
-        }
-
-        Console.Write("Search the user you want to change password: ");
-        var selected = Console.ReadLine();
-
-        User found = users.Find(u => u.Username == selected);
-
-        if (found == null)
-        {
-            Console.WriteLine("User not found.");
-            return;
-        }
-
         Console.Write("Please enter the number of products you want to add: ");
         var productsNum = Convert.ToInt32(Console.ReadLine());
 
@@ -206,18 +182,20 @@ public class Warehouse
             Console.WriteLine("Quantity: " + orders.Quantity);
             }
         }
-
+}
+public class Info 
+{
     public static void UserInfo(List<Warehouse> warehouseUser, List<User> users)
-        {
-            if (warehouseUser.Count == 0)
-                Console.WriteLine("No Record found");
-            if (users.Count == 0)
-                Console.WriteLine("No Record found");
+    {
+        if (warehouseUser.Count == 0)
+            Console.WriteLine("No Record found");
+        if (users.Count == 0)
+            Console.WriteLine("No Record found");
 
-            Console.WriteLine("\nACCOUNTS");
-            for (int i = 0; i < warehouseUser.Count; i++)
-            {
-                Console.WriteLine($"{i}. Username: " + warehouseUser[i].ProductName);
-            }
+        Console.WriteLine("\nACCOUNTS");
+        for (int i = 0; i < warehouseUser.Count; i++)
+        {
+            Console.WriteLine($"{i}. Username: " + warehouseUser[i].ProductName);
         }
+    }
 }

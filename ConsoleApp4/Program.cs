@@ -38,7 +38,7 @@ namespace FOPGROUPMAIN
                         break;
                     case 2:
                         User.AddUser(users, warehouseUser);
-                        WarehouseConditions(warehouseUser, users);
+                        WarehouseConditions(users, warehouseUser);
                         keepRunning = false;
                         break;
                     case 3:
@@ -108,7 +108,7 @@ namespace FOPGROUPMAIN
                 }
             }
         }
-        public static void WarehouseConditions(List<Warehouse> warehouseUser, List<User> users)
+        public static void WarehouseConditions(List<User> users, List<Warehouse> warehouseUser)
         {
             var keepRunningWarehouse = true;
             while (keepRunningWarehouse)

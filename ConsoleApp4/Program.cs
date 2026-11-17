@@ -19,12 +19,14 @@ namespace FOPGROUPMAIN
         public static void Login(List<User> users, List<Warehouse> warehouseUser, List<Info> userOrders)
         {
             var keepRunning = true;
+            var attempts = 3;
             while (keepRunning)
             {
                 var selectedRoles = "\nPlease Select a user role to login:" +
                                     "\n1. Admin" +
                                     "\n2. Warehouse" +
-                                    "\n3. User";
+                                    "\n3. User" +
+                                    "\n4. Log Out";
 
                 Console.WriteLine(selectedRoles);
                 Console.Write("\nEnter a number:");
@@ -46,8 +48,21 @@ namespace FOPGROUPMAIN
                         UserConditions(users, warehouseUser, userOrders);
                         keepRunning = false;
                         break;
+                    case 4:
+                        Console.WriteLine("\nLogging Out...");
+                        keepRunning = false;
+                        break;
                     default:
-                        Console.WriteLine("Invalid input");
+                        attempts--;
+                        if (attempts > 0)
+                        {
+                            Console.WriteLine("Invalid input. " + attempts + " attempt(s) left.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input. No attempts left.");
+                            keepRunning = false;
+                        }
                         break;
                 }
             }

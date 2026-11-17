@@ -157,8 +157,10 @@ namespace FOPGROUPMAIN
                 switch (input)
                 {
                     case 1:
+                        Info.UserInfo(warehouseUser, users, userOrders);
                         break;
                     case 2:
+                        Info.DisplayUserOrders(userOrders);
                         break;
                     case 3:
                         Console.WriteLine("Logging out...");

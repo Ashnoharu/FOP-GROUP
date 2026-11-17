@@ -152,6 +152,7 @@ public class Warehouse
 {
     public string ProductName { get; set; }
     public int Quantity { get; set; }
+    public DateTime Date { get; set; }
 
     public static void AddProduct(List<Warehouse> warehouseUser, List<User> users)
     {
@@ -169,6 +170,7 @@ public class Warehouse
             Warehouse orders = new Warehouse();
             orders.ProductName = productName;
             orders.Quantity = productQuantity;
+            orders.Date = DateTime.Now;
             warehouseUser.Add(orders);
         }
     }
@@ -182,6 +184,9 @@ public class Warehouse
             {
                 Console.WriteLine("\nProduct name: " + orders.ProductName);
                 Console.WriteLine("Quantity: " + orders.Quantity);
+                Console.WriteLine("Status:"  + (users[0].IsActive ? "Active" : "Deactivated"));
+                Console.WriteLine("Date: " + orders.Date);
+                Console.WriteLine("Created by: " + users[0].Username);
             }
         }
 }

@@ -196,7 +196,7 @@ public class Warehouse
             {
                 Console.WriteLine("\nProduct name: " + orders.ProductName);
                 Console.WriteLine("Quantity: " + orders.Quantity);
-                Console.WriteLine("Active:"  + (orders.CreatedBy.IsActive ? "Yes" : "No"));
+                Console.WriteLine("Active: "  + (orders.CreatedBy.IsActive ? "Yes" : "No"));
                 Console.WriteLine("Created Date: " + orders.Date);
                 Console.WriteLine("Created By: " + orders.CreatedBy.Username);
             }

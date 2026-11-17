@@ -205,9 +205,10 @@ public class Info
     public static void UserInfo(List<Warehouse> warehouseUser, List<User> users, List<Info> userProductOrders)
     {
         Console.WriteLine("\nPRODUCTS");
-        foreach (var userOrders in warehouseUser)
+
+        for (int i = 1; i < warehouseUser.Count; i++)
         {
-            for (int i = 1; i < warehouseUser.Count; i++)
+            foreach (var userOrders in warehouseUser)
             {
                 Console.WriteLine(i + ". Product name: " + userOrders.ProductName);
                 Console.WriteLine("Quantity: " + userOrders.Quantity);

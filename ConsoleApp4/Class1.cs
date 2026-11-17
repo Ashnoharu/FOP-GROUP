@@ -6,6 +6,7 @@ namespace FOPGROUPMAIN
 {
     public class User
     {
+        public static User CurrentUser;
         public string Username { get; set; }
         public string Password { get; set; }
         public bool IsActive { get; set; } = true;
@@ -21,6 +22,7 @@ namespace FOPGROUPMAIN
             newUser.Username = username;
             newUser.Password = password;
             users.Add(newUser);
+            CurrentUser = newUser;
         }
 
         public static void SetNewPassword(List<User> users)
@@ -153,6 +155,7 @@ public class Warehouse
     public string ProductName { get; set; }
     public int Quantity { get; set; }
     public DateTime Date { get; set; }
+    public User CreatedBy { get; set; }
 
     public static void AddProduct(List<Warehouse> warehouseUser, List<User> users)
     {
@@ -171,6 +174,7 @@ public class Warehouse
             orders.ProductName = productName;
             orders.Quantity = productQuantity;
             orders.Date = DateTime.Now;
+            orders.CreatedBy = User.CurrentUser;
             warehouseUser.Add(orders);
         }
     }
@@ -180,13 +184,13 @@ public class Warehouse
             if (warehouseUser.Count == 0)
             Console.WriteLine("No Record found");
 
-            foreach (var orders in warehouseUser)
+        foreach (var orders in warehouseUser)
             {
                 Console.WriteLine("\nProduct name: " + orders.ProductName);
                 Console.WriteLine("Quantity: " + orders.Quantity);
-                Console.WriteLine("Status:"  + (users[0].IsActive ? "Active" : "Deactivated"));
-                Console.WriteLine("Date: " + orders.Date);
-                Console.WriteLine("Created by: " + users[0].Username);
+                Console.WriteLine("Active:"  + (orders.CreatedBy.IsActive ? "Yes" : "No"));
+                Console.WriteLine("Created Date: " + orders.Date);
+                Console.WriteLine("Created By: " + orders.CreatedBy.Username);
             }
         }
 }

@@ -140,20 +140,20 @@ namespace FOPGROUPMAIN
 
             foreach (var products in warehouseUser)
             {
-                while (i <= warehouseUser.Count)
-                {
-                    Console.WriteLine(i + ". Product name: " + products.ProductName);
+                    Console.WriteLine(i++ + ". Product name: " + products.ProductName);
                     Console.WriteLine("Quantity: " + products.Quantity);
-                    i++;
-                }
             }
         }
 
-        public static void DisplayOrders(List<Info> userOrders)
+        public static void DisplayOrders(List<Info> userProductOrders)
         {
-            foreach (var order in userOrders)
+            if (userProductOrders.Count == 0)
+                Console.WriteLine("\nNo Record found");
+
+            foreach (var orders in userProductOrders)
             {
-                Console.WriteLine(order);
+                Console.WriteLine("\nProduct name: " + orders.order);
+                Console.WriteLine("Quantity: " + orders.Quantity);
             }
         }
     } 
@@ -187,7 +187,7 @@ public class Warehouse
         }
     }
 
-        public static void DisplayWarehouse(List <Warehouse> warehouseUser, List<User> users)
+    public static void DisplayWarehouse(List <Warehouse> warehouseUser, List<User> users)
         {
             if (warehouseUser.Count == 0)
             Console.WriteLine("No Record found");
@@ -205,7 +205,7 @@ public class Warehouse
 public class Info 
 {
     public string order { get; set; }
-    public int quantity { get; set; }
+    public int Quantity { get; set; }
     public static void UserInfo(List<Warehouse> warehouseUser, List<User> users, List<Info> userProductOrders)
     {
         var i = 1;
@@ -277,10 +277,11 @@ public class Info
                 Console.WriteLine("Invalid selection.");
                 return;
         }
-        Info orders = new Info();
-        orders.order = warehouseUser[selected - 1].ProductName;
-        orders.quantity = quantity;
-        userProductOrders.Add(orders);
+            warehouseUser[selected - 1].Quantity -= quantity;
+            Info orders = new Info();
+            orders.order = warehouseUser[selected - 1].ProductName;
+            orders.Quantity = quantity;
+            userProductOrders.Add(orders);
 
         Console.WriteLine("\nOrder has been placed successfully.");
     }
@@ -292,7 +293,7 @@ public class Info
         foreach (var orders in userProductOrders)
         {
             Console.WriteLine("\nProduct name: " + orders.order);
-            Console.WriteLine("Quantity: " + orders.quantity);
+            Console.WriteLine("Quantity: " + orders.Quantity);
         }
     }
 }

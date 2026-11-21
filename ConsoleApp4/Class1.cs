@@ -36,7 +36,7 @@ namespace FOPGROUPMAIN
 
             for (int i = 0; i < users.Count; i++)
             {
-                Console.WriteLine($"{i}. Username: " + users[i].Username);
+                Console.WriteLine($" Username: " + users[i].Username);
             }
 
             Console.Write("Search the user you want to change password: ");

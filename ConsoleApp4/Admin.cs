@@ -326,7 +326,6 @@ public class Info
                 return;
             }
 
-            {
                 while (true)
                 {
                     Console.Write("\nPlease enter the quantity of the product you want to order: ");
@@ -367,11 +366,20 @@ public class Info
                     userProductOrders.Add(orders);
 
                     Console.WriteLine("\nOrder has been placed successfully.");
-                    keepRunning = false;
-                    break;
-                    
-                }
-            }
+
+                    Console.Write("Do you want to order again? (Y/N): ");
+                    var orderAnswer = Console.ReadLine();
+
+                    if (orderAnswer == "y")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        keepRunning = false;
+                        break;
+                    }
+            } 
         }
     }
     public static void DisplayUserOrders(List<Info> userProductOrders)

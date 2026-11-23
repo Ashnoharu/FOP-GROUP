@@ -173,7 +173,7 @@ namespace FOPGROUPMAIN
                 }
             }
         }
-        public static void UserConditions(List<User> users, List<Warehouse> warehouseUser, List<Info> userOrders)
+        public static void UserConditions(List<User> users, List<Warehouse> warehouseUser, List<Info> userProductOrders)
         {
             var keepRunningUser = true;
             while (keepRunningUser)
@@ -193,15 +193,15 @@ namespace FOPGROUPMAIN
                 switch (input)
                 {
                     case 1:
-                        Info.UserInfo(warehouseUser, users, userOrders);
+                        Info.UserInfo(warehouseUser, users, userProductOrders);
                         break;
                     case 2:
-                        Info.DisplayUserOrders(userOrders);
+                        Info.DisplayUserOrders(userProductOrders);
                         break;
                     case 3:
                         Console.WriteLine("Logging out...");
                         keepRunningUser = false;
-                        Login(users, warehouseUser, userOrders);
+                        Login(users, warehouseUser, userProductOrders);
                         break;
                     default:
                         Console.WriteLine("Invalid input");

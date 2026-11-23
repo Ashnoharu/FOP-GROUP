@@ -205,11 +205,10 @@ public class Warehouse
 
             if (productsNum <= 0)
             {
-                Console.WriteLine("Please enter a number greater than 0.");
+                Console.WriteLine("\nPlease enter a number greater than 0.");
                 continue;
             }
 
-            Warehouse orders = new Warehouse();
             var newItems = new List<Warehouse>();
             var invalidQuantity = false;
 
@@ -220,14 +219,26 @@ public class Warehouse
 
                 if (productName == "")
                 {
-                    Console.WriteLine("Product cannot be empty.");
+                    Console.WriteLine("\nProduct cannot be empty.");
                     return;
                 }
 
-                if (orders.ProductName == productName)
+                foreach (var item in warehouseUser)
                 {
-                    Console.WriteLine("Product cannot be the same.");
-                    return;
+                    if (item.ProductName == productName)
+                    {
+                        Console.WriteLine("\nProduct cannot be the same.");
+                        return;
+                    }
+                }
+
+                foreach (var item in newItems)
+                {
+                    if (item.ProductName == productName)
+                    {
+                        Console.WriteLine("\nProduct cannot be the same.");
+                        return;
+                    }
                 }
 
                 Console.Write("Please enter the quantity of the product: ");
@@ -235,11 +246,12 @@ public class Warehouse
 
                 if (productQuantity >= 1000000)
                 {
-                    Console.WriteLine("Excessive amount of quantity please lower the value.");
+                    Console.WriteLine("\nExcessive amount of quantity please lower the value.");
                     invalidQuantity = true;
                     return;
                 }
 
+                Warehouse orders = new Warehouse();
                 orders.ProductName = productName;
                 orders.Quantity = productQuantity;
                 orders.Date = DateTime.Now;
@@ -256,7 +268,7 @@ public class Warehouse
 
             Console.WriteLine("Stored Succesfully");
 
-            Console.Write("Do you want to store product again? (Y/N): ");
+            Console.Write("\nDo you want to store product again? (Y/N): ");
             var answer = Console.ReadLine().ToLower().Trim();
 
             if (answer != "y")
@@ -287,12 +299,16 @@ public class Info
     public int Quantity { get; set; }
     public static void UserInfo(List<Warehouse> warehouseUser, List<User> users, List<Info> userProductOrders)
     {
-        if (warehouseUser.Count == 0)
-        {
-            Console.WriteLine("\nNo Record found");
-        }
-        else
-        {
+        var keepRunning = true;
+
+           while (keepRunning)
+            {
+            if (warehouseUser.Count == 0)
+            {
+                Console.WriteLine("\nNo Record found");
+                return;
+            }
+
             var i = 1;
             Console.WriteLine("\nPRODUCTS");
 
@@ -310,78 +326,43 @@ public class Info
                 return;
             }
 
-            Console.Write("\nPlease enter the quantity of the product you want to order: ");
-            var quantity = Convert.ToInt32(Console.ReadLine());
-
-            if (quantity == 0)
             {
-                Console.WriteLine("\nQuantity cannot be zero");
-                return;
-            }
+                Console.Write("\nPlease enter the quantity of the product you want to order: ");
+                var quantity = Convert.ToInt32(Console.ReadLine());
 
-            switch (selected)
-            {
-                case 1:
-                    if (quantity > warehouseUser[0].Quantity)
-                    {
-                        Console.WriteLine("Insufficient quantity available.");
-                        return;
-                    }
-                    Console.WriteLine("Order details");
-                    Console.WriteLine("Product: " + warehouseUser[0].ProductName);
-                    Console.WriteLine("Quantity: " + quantity);
-                    break;
-                case 2:
-                    if (quantity > warehouseUser[1].Quantity)
-                    {
-                        Console.WriteLine("Insufficient quantity available.");
-                        return;
-                    }
-                    Console.WriteLine("Order details");
-                    Console.WriteLine("Product: " + warehouseUser[1].ProductName);
-                    Console.WriteLine("Quantity: " + quantity);
-                    break;
-                case 3:
-                    if (quantity > warehouseUser[2].Quantity)
-                    {
-                        Console.WriteLine("Insufficient quantity available.");
-                        return;
-                    }
-                    Console.WriteLine("Order details");
-                    Console.WriteLine("Product: " + warehouseUser[2].ProductName);
-                    Console.WriteLine("Quantity: " + quantity);
-                    break;
-                case 4:
-                    if (quantity > warehouseUser[3].Quantity)
-                    {
-                        Console.WriteLine("\nInsufficient quantity available.");
-                        return;
-                    }
-                    Console.WriteLine("Order details");
-                    Console.WriteLine("Product: " + warehouseUser[3].ProductName);
-                    Console.WriteLine("Quantity: " + quantity);
-                    break;
-                case 5:
-                    if (quantity > warehouseUser[4].Quantity)
-                    {
-                        Console.WriteLine("Insufficient quantity available.");
-                        return;
-                    }
-                    Console.WriteLine("Order details");
-                    Console.WriteLine("Product: " + warehouseUser[4].ProductName);
-                    Console.WriteLine("Quantity: " + quantity);
-                    break;
-                default:
-                    Console.WriteLine("Invalid selection.");
+                if (quantity <= 0)
+                {
+                    Console.WriteLine("\nQuantity cannot be zero or negative");
                     return;
-            }
-            warehouseUser[selected - 1].Quantity -= quantity;
-            Info orders = new Info();
-            orders.order = warehouseUser[selected - 1].ProductName;
-            orders.Quantity = quantity;
-            userProductOrders.Add(orders);
+                }
 
-            Console.WriteLine("\nOrder has been placed successfully.");
+                if (quantity > warehouseUser[selected - 1].Quantity)
+                {
+                    Console.WriteLine("\nInsufficient quantity available.");
+                    Console.Write("Do you wish to enter a valid quantity? (Y/N): ");
+                    var answer = Console.ReadLine().ToLower().Trim();
+
+                    if (answer != "y")
+                    {
+                        Console.WriteLine("Order has not been placed.");
+                        keepRunning = false;
+                        return;
+                    }
+                }
+
+                Console.WriteLine("\nOrder details");
+                Console.WriteLine("Product: " + warehouseUser[selected - 1].ProductName);
+                Console.WriteLine("Quantity: " + quantity);
+
+                warehouseUser[selected - 1].Quantity -= quantity;
+                Info orders = new Info();
+                orders.order = warehouseUser[selected - 1].ProductName;
+                orders.Quantity = quantity;
+                userProductOrders.Add(orders);
+
+                Console.WriteLine("\nOrder has been placed successfully.");
+                break;
+            }
         }
     }
     public static void DisplayUserOrders(List<Info> userProductOrders)

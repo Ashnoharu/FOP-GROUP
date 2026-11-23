@@ -11,10 +11,34 @@ namespace FOPGROUPMAIN
         public string Password { get; set; }
         public bool IsActive { get; set; } = true;
 
-        public static void AddUser(List <User> users, List <Warehouse> warehouseUser)
+        public static void AddUser(List<User> users, List<Warehouse> warehouseUser)
         {
             Console.Write("Enter your username: ");
             var username = Console.ReadLine();
+
+            foreach (var user in users)
+            {
+                if (user.Username == username)
+                {
+                    Console.WriteLine("\nUser existing detected, enter password to login.");
+                    Console.Write("Enter your password to login: ");
+                    var loginPassword = Console.ReadLine();
+
+                    if (user.Password == loginPassword)
+                    {
+                        CurrentUser = user;
+                        Console.WriteLine("\nLogin successful.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nWrong password detected creat new account.");
+                        Console.WriteLine();
+                        User.AddUser(users, warehouseUser);
+                    }
+                    return;
+                }
+            }
+
             Console.Write("Enter your password: ");
             var password = Console.ReadLine();
 
@@ -23,6 +47,8 @@ namespace FOPGROUPMAIN
             newUser.Password = password;
             users.Add(newUser);
             CurrentUser = newUser;
+
+            Console.WriteLine("\nAccount created.");
         }
 
         public static void SetNewPassword(List<User> users)

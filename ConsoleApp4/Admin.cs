@@ -22,7 +22,7 @@ namespace FOPGROUPMAIN
                 {
                     Console.WriteLine("\nUser existing detected, enter password to login.");
                     Console.Write("Enter your password to login: ");
-                    var loginPassword = Console.ReadLine();
+                    var loginPassword = Console.ReadLine().Trim();
 
                     if (user.Password == loginPassword)
                     {
@@ -91,7 +91,7 @@ namespace FOPGROUPMAIN
             Console.WriteLine("Password updated for " + found.Username);
         }
 
-        public static void DeactUser(List<User> users)
+        public static void DeactivateUser(List<User> users)
         {
             if (users.Count == 0)
             {
@@ -200,15 +200,6 @@ public class Warehouse
         var keepRunning = true;
         while (keepRunning)
         {
-            var remaining = 5 - warehouseUser.Count;
-
-            if (remaining <= 0)
-            {
-                Console.WriteLine("Storage is full, maximum of 5 items reached.");
-                return;
-            }
-
-            Console.WriteLine("\nRemaining storage space: " + remaining);
             Console.Write("Please enter the number of products you want to add: ");
             var productsNum = Convert.ToInt32(Console.ReadLine());
 
@@ -218,19 +209,26 @@ public class Warehouse
                 continue;
             }
 
-            if (productsNum > remaining)
-            {
-                Console.WriteLine("Not enough space. You can only add " + remaining + " more item(s), please try again.");
-                continue;
-            }
-
+            Warehouse orders = new Warehouse();
             var newItems = new List<Warehouse>();
             var invalidQuantity = false;
 
             for (int i = 0; i < productsNum; i++)
             {
                 Console.Write("\nPlease enter the name of the product: ");
-                var productName = Console.ReadLine();
+                var productName = Console.ReadLine().Trim();
+
+                if (productName == "")
+                {
+                    Console.WriteLine("Product cannot be empty.");
+                    return;
+                }
+
+                if (orders.ProductName == productName)
+                {
+                    Console.WriteLine("Product cannot be the same.");
+                    return;
+                }
 
                 Console.Write("Please enter the quantity of the product: ");
                 var productQuantity = Convert.ToInt32(Console.ReadLine());
@@ -239,10 +237,9 @@ public class Warehouse
                 {
                     Console.WriteLine("Excessive amount of quantity please lower the value.");
                     invalidQuantity = true;
-                    break;
+                    return;
                 }
 
-                Warehouse orders = new Warehouse();
                 orders.ProductName = productName;
                 orders.Quantity = productQuantity;
                 orders.Date = DateTime.Now;
@@ -258,12 +255,6 @@ public class Warehouse
             warehouseUser.AddRange(newItems);
 
             Console.WriteLine("Stored Succesfully");
-
-            if (warehouseUser.Count >= 5)
-            {
-                Console.WriteLine("Storage is now full.");
-                return;
-            }
 
             Console.Write("Do you want to store product again? (Y/N): ");
             var answer = Console.ReadLine().ToLower().Trim();
@@ -321,6 +312,12 @@ public class Info
 
             Console.Write("\nPlease enter the quantity of the product you want to order: ");
             var quantity = Convert.ToInt32(Console.ReadLine());
+
+            if (quantity == 0)
+            {
+                Console.WriteLine("\nQuantity cannot be zero");
+                return;
+            }
 
             switch (selected)
             {

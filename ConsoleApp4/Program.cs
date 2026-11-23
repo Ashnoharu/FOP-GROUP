@@ -104,7 +104,7 @@ namespace FOPGROUPMAIN
                         User.SetNewPassword(users);
                         break;
                     case 2:
-                        User.DeactUser(users);
+                        User.DeactivateUser(users);
                         break;
                     case 3:
                         User.AddUser(users, warehouseUser);

@@ -133,7 +133,7 @@ namespace FOPGROUPMAIN
             if (users.Count == 0)
                 Console.WriteLine("No Record found");
 
-            Console.WriteLine("USER LIST");
+            Console.WriteLine("\nUSER LIST");
             foreach (var user in users)
             {
                 Console.WriteLine();
@@ -150,6 +150,7 @@ namespace FOPGROUPMAIN
                     Console.WriteLine("\nUsername: " + user.Username);
                 else
                     Console.WriteLine("No Inactive User");
+                break;
             }
         }
 
@@ -160,7 +161,8 @@ namespace FOPGROUPMAIN
                 if (user.IsActive)
                     Console.WriteLine("\nUsername: " + user.Username);
                 else
-                    Console.WriteLine("No Inactive User");
+                    Console.WriteLine("No Active User");
+                break;
             }
         }
 
@@ -284,6 +286,7 @@ public class Warehouse
             if (warehouseUser.Count == 0)
             Console.WriteLine("No Record found");
 
+            Console.WriteLine("\nUSER LIST");
         foreach (var orders in warehouseUser)
             {
                 Console.WriteLine("\nProduct name: " + orders.ProductName);

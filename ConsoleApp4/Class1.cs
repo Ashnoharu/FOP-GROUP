@@ -31,7 +31,7 @@ namespace FOPGROUPMAIN
                     }
                     else
                     {
-                        Console.WriteLine("\nWrong password detected creat new account.");
+                        Console.WriteLine("\nWrong password detected create new account.");
                         Console.WriteLine();
                         User.AddUser(users, warehouseUser);
                     }

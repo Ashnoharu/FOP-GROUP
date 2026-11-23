@@ -36,7 +36,7 @@ namespace FOPGROUPMAIN
 
             for (int i = 0; i < users.Count; i++)
             {
-                Console.WriteLine($" Username: " + users[i].Username);
+                Console.WriteLine($"Username: " + users[i].Username);
             }
 
             Console.Write("Search the user you want to change password: ");
@@ -198,6 +198,9 @@ public class Warehouse
                 continue;
             }
 
+            var newItems = new List<Warehouse>();
+            var invalidQuantity = false;
+
             for (int i = 0; i < productsNum; i++)
             {
                 Console.Write("\nPlease enter the name of the product: ");
@@ -206,13 +209,27 @@ public class Warehouse
                 Console.Write("Please enter the quantity of the product: ");
                 var productQuantity = Convert.ToInt32(Console.ReadLine());
 
+                if (productQuantity >= 1000000)
+                {
+                    Console.WriteLine("Excessive amount of quantity please lower the value.");
+                    invalidQuantity = true;
+                    break;
+                }
+
                 Warehouse orders = new Warehouse();
                 orders.ProductName = productName;
                 orders.Quantity = productQuantity;
                 orders.Date = DateTime.Now;
                 orders.CreatedBy = User.CurrentUser;
-                warehouseUser.Add(orders);
+                newItems.Add(orders);
             }
+
+            if (invalidQuantity)
+            {
+                continue;
+            }
+
+            warehouseUser.AddRange(newItems);
 
             Console.WriteLine("Stored Succesfully");
 

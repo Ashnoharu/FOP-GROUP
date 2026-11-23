@@ -30,7 +30,13 @@ namespace FOPGROUPMAIN
 
                 Console.WriteLine(selectedRoles);
                 Console.Write("\nEnter a number:");
-                var input = Convert.ToInt32(Console.ReadLine());
+                int input;
+
+                if (!int.TryParse(Console.ReadLine(), out input))
+                {
+                    Console.WriteLine("\nInvalid input, please try again.");
+                    continue;
+                }
 
                 switch (input)
                 {
@@ -56,7 +62,7 @@ namespace FOPGROUPMAIN
                         attempts--;
                         if (attempts > 0)
                         {
-                            Console.WriteLine("Invalid input. " + attempts + " attempt(s) left.");
+                            Console.WriteLine($"Invalid input. {attempts} attempt(s) left.");
                         }
                         else
                         {
@@ -85,9 +91,14 @@ namespace FOPGROUPMAIN
 
                 Console.WriteLine(adminQuestion);
                 Console.Write("\nEnter a number: ");
-                var adminAnswer = Convert.ToInt32(Console.ReadLine());
+                int input;
 
-                switch (adminAnswer)
+                if (!int.TryParse(Console.ReadLine(), out input))
+                {
+                    Console.WriteLine("\nInvalid input, please try again.");
+                }
+
+                switch (input)
                 {
                     case 1:
                         User.SetNewPassword(users);
@@ -136,7 +147,12 @@ namespace FOPGROUPMAIN
 
                 Console.WriteLine(selectedOrder);
                 Console.Write("\nEnter a number:");
-                var input = Convert.ToInt32(Console.ReadLine());
+                int input;
+
+                if (!int.TryParse(Console.ReadLine(), out input))
+                {
+                    Console.WriteLine("\nInvalid input, please try again.");
+                }
 
                 switch (input)
                 {
@@ -168,7 +184,12 @@ namespace FOPGROUPMAIN
                                     "\n3. Logout";
                 Console.WriteLine(selectedOrder);
                 Console.Write("\nEnter a number:");
-                var input = Convert.ToInt32(Console.ReadLine());
+                int input;
+
+                if (!int.TryParse(Console.ReadLine(), out input))
+                {
+                    Console.WriteLine("\nInvalid input, please try again.");
+                }
                 switch (input)
                 {
                     case 1:

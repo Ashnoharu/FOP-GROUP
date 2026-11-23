@@ -121,6 +121,8 @@ namespace FOPGROUPMAIN
             {
                 if (!user.IsActive)
                     Console.WriteLine("\nUsername: " + user.Username);
+                else
+                    Console.WriteLine("No Inactive User");
             }
         }
 
@@ -130,6 +132,8 @@ namespace FOPGROUPMAIN
             {
                 if (user.IsActive)
                     Console.WriteLine("\nUsername: " + user.Username);
+                else
+                    Console.WriteLine("No Inactive User");
             }
         }
 
@@ -167,23 +171,64 @@ public class Warehouse
 
     public static void AddProduct(List<Warehouse> warehouseUser, List<User> users)
     {
-        Console.Write("Please enter the number of products you want to add: ");
-        var productsNum = Convert.ToInt32(Console.ReadLine());
-
-        for (int i = 0; i < productsNum; i++)
+        var keepRunning = true;
+        while (keepRunning)
         {
-            Console.Write("\nPlease enter the name of the product:");
-            var productName = Console.ReadLine();
+            var remaining = 5 - warehouseUser.Count;
 
-            Console.Write("Please enter the quantity of the product:");
-            var productQuantity = Convert.ToInt32(Console.ReadLine());
+            if (remaining <= 0)
+            {
+                Console.WriteLine("Storage is full, maximum of 5 items reached.");
+                return;
+            }
 
-            Warehouse orders = new Warehouse();
-            orders.ProductName = productName;
-            orders.Quantity = productQuantity;
-            orders.Date = DateTime.Now;
-            orders.CreatedBy = User.CurrentUser;
-            warehouseUser.Add(orders);
+            Console.WriteLine("\nRemaining storage space: " + remaining);
+            Console.Write("Please enter the number of products you want to add: ");
+            var productsNum = Convert.ToInt32(Console.ReadLine());
+
+            if (productsNum <= 0)
+            {
+                Console.WriteLine("Please enter a number greater than 0.");
+                continue;
+            }
+
+            if (productsNum > remaining)
+            {
+                Console.WriteLine("Not enough space. You can only add " + remaining + " more item(s), please try again.");
+                continue;
+            }
+
+            for (int i = 0; i < productsNum; i++)
+            {
+                Console.Write("\nPlease enter the name of the product: ");
+                var productName = Console.ReadLine();
+
+                Console.Write("Please enter the quantity of the product: ");
+                var productQuantity = Convert.ToInt32(Console.ReadLine());
+
+                Warehouse orders = new Warehouse();
+                orders.ProductName = productName;
+                orders.Quantity = productQuantity;
+                orders.Date = DateTime.Now;
+                orders.CreatedBy = User.CurrentUser;
+                warehouseUser.Add(orders);
+            }
+
+            Console.WriteLine("Stored Succesfully");
+
+            if (warehouseUser.Count >= 5)
+            {
+                Console.WriteLine("Storage is now full.");
+                return;
+            }
+
+            Console.Write("Do you want to store product again? (Y/N): ");
+            var answer = Console.ReadLine().ToLower().Trim();
+
+            if (answer != "y")
+            {
+                keepRunning = false;
+            }
         }
     }
 
@@ -262,7 +307,7 @@ public class Info
                 case 4:
                     if (quantity > warehouseUser[3].Quantity)
                     {
-                        Console.WriteLine("Insufficient quantity available.");
+                        Console.WriteLine("\nInsufficient quantity available.");
                         return;
                     }
                     Console.WriteLine("Order details");

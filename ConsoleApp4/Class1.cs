@@ -286,6 +286,13 @@ public class Info
             }
             Console.Write("\nPlease enter the number of the product you want to order: ");
             var selected = Convert.ToInt32(Console.ReadLine());
+
+            if (selected < 1 || selected > warehouseUser.Count)
+            {
+                Console.WriteLine("\nInvalid selection.");
+                return;
+            }
+
             Console.Write("\nPlease enter the quantity of the product you want to order: ");
             var quantity = Convert.ToInt32(Console.ReadLine());
 

@@ -301,8 +301,8 @@ public class Info
     {
         var keepRunning = true;
 
-           while (keepRunning)
-            {
+        while (keepRunning)
+        {
             if (warehouseUser.Count == 0)
             {
                 Console.WriteLine("\nNo Record found");
@@ -327,41 +327,50 @@ public class Info
             }
 
             {
-                Console.Write("\nPlease enter the quantity of the product you want to order: ");
-                var quantity = Convert.ToInt32(Console.ReadLine());
-
-                if (quantity <= 0)
+                while (true)
                 {
-                    Console.WriteLine("\nQuantity cannot be zero or negative");
-                    return;
-                }
+                    Console.Write("\nPlease enter the quantity of the product you want to order: ");
+                    var quantity = Convert.ToInt32(Console.ReadLine());
 
-                if (quantity > warehouseUser[selected - 1].Quantity)
-                {
-                    Console.WriteLine("\nInsufficient quantity available.");
-                    Console.Write("Do you wish to enter a valid quantity? (Y/N): ");
-                    var answer = Console.ReadLine().ToLower().Trim();
-
-                    if (answer != "y")
+                    if (quantity <= 0)
                     {
-                        Console.WriteLine("Order has not been placed.");
-                        keepRunning = false;
+                        Console.WriteLine("\nQuantity cannot be zero or negative");
                         return;
                     }
+
+                    if (quantity > warehouseUser[selected - 1].Quantity)
+                    {
+                        Console.WriteLine("\nInsufficient quantity available.");
+                        Console.Write("Do you wish to enter a valid quantity? (Y/N): ");
+                        var answer = Console.ReadLine().ToLower().Trim();
+
+                        if (answer == "y")
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Order has not been placed.");
+                            keepRunning = false;
+                            return;
+                        }
+                    }
+
+                    Console.WriteLine("\nOrder details");
+                    Console.WriteLine("Product: " + warehouseUser[selected - 1].ProductName);
+                    Console.WriteLine("Quantity: " + quantity);
+
+                    warehouseUser[selected - 1].Quantity -= quantity;
+                    Info orders = new Info();
+                    orders.order = warehouseUser[selected - 1].ProductName;
+                    orders.Quantity = quantity;
+                    userProductOrders.Add(orders);
+
+                    Console.WriteLine("\nOrder has been placed successfully.");
+                    keepRunning = false;
+                    break;
+                    
                 }
-
-                Console.WriteLine("\nOrder details");
-                Console.WriteLine("Product: " + warehouseUser[selected - 1].ProductName);
-                Console.WriteLine("Quantity: " + quantity);
-
-                warehouseUser[selected - 1].Quantity -= quantity;
-                Info orders = new Info();
-                orders.order = warehouseUser[selected - 1].ProductName;
-                orders.Quantity = quantity;
-                userProductOrders.Add(orders);
-
-                Console.WriteLine("\nOrder has been placed successfully.");
-                break;
             }
         }
     }

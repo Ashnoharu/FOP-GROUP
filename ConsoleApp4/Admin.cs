@@ -133,6 +133,7 @@ namespace FOPGROUPMAIN
             if (users.Count == 0)
                 Console.WriteLine("No Record found");
 
+            Console.WriteLine("USER LIST");
             foreach (var user in users)
             {
                 Console.WriteLine();

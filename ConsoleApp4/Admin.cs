@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using ConsoleApp4;
 using FOPGROUPMAIN;
 
 namespace FOPGROUPMAIN
 {
-    public class User
+    public class Admin
     {
-        public static User CurrentUser;
+        public static Admin CurrentUser;
         public string Username { get; set; }
         public string Password { get; set; }
         public bool IsActive { get; set; } = true;
 
-        public static void AddUser(List<User> users, List<Warehouse> warehouseUser)
+        public static void AddUser(List<Admin> users, List<Warehouse> warehouseUser)
         {
             Console.Write("Enter your username: ");
             var username = Console.ReadLine();
@@ -33,7 +34,7 @@ namespace FOPGROUPMAIN
                     {
                         Console.WriteLine("\nWrong password detected create new account.");
                         Console.WriteLine();
-                        User.AddUser(users, warehouseUser);
+                        Admin.AddUser(users, warehouseUser);
                     }
                     return;
                 }
@@ -42,7 +43,7 @@ namespace FOPGROUPMAIN
             Console.Write("Enter your password: ");
             var password = Console.ReadLine();
 
-            User newUser = new User();
+            Admin newUser = new Admin();
             newUser.Username = username;
             newUser.Password = password;
             users.Add(newUser);
@@ -51,7 +52,7 @@ namespace FOPGROUPMAIN
             Console.WriteLine("\nAccount created.");
         }
 
-        public static void SetNewPassword(List<User> users)
+        public static void SetNewPassword(List<Admin> users)
         {
             if (users.Count == 0)
             {
@@ -68,7 +69,7 @@ namespace FOPGROUPMAIN
             Console.Write("Search the user you want to change password: ");
             var selected = Console.ReadLine();
 
-            User found = users.Find(u => u.Username == selected);
+            Admin found = users.Find(u => u.Username == selected);
 
             if (found == null)
             {
@@ -91,7 +92,7 @@ namespace FOPGROUPMAIN
             Console.WriteLine("Password updated for " + found.Username);
         }
 
-        public static void DeactivateUser(List<User> users)
+        public static void DeactivateUser(List<Admin> users)
         {
             if (users.Count == 0)
             {
@@ -109,7 +110,7 @@ namespace FOPGROUPMAIN
             Console.Write("Enter a username to deactivate: ");
             var keyword = Console.ReadLine().ToLower();
 
-            User found = users.Find(u => u.Username.ToLower() == keyword);
+            Admin found = users.Find(u => u.Username.ToLower() == keyword);
 
             if (found == null)
                 Console.WriteLine("No Record found");
@@ -128,7 +129,7 @@ namespace FOPGROUPMAIN
             }
         }
 
-        public static void DisplayAllUsers(List<User> users)
+        public static void DisplayAllUsers(List<Admin> users)
         {
             if (users.Count == 0)
                 Console.WriteLine("No Record found");
@@ -142,7 +143,7 @@ namespace FOPGROUPMAIN
             }
         }
 
-        public static void DisplayInactiveUsers(List<User> users)
+        public static void DisplayInactiveUsers(List<Admin> users)
         {
             foreach (var user in users)
             {
@@ -154,7 +155,7 @@ namespace FOPGROUPMAIN
             }
         }
 
-        public static void DisplayActiveUsers(List<User> users)
+        public static void DisplayActiveUsers(List<Admin> users)
         {
             foreach (var user in users)
             {
@@ -178,7 +179,7 @@ namespace FOPGROUPMAIN
             }
         }
 
-        public static void DisplayOrders(List<Info> userProductOrders)
+        public static void DisplayOrders(List<User> userProductOrders)
         {
             if (userProductOrders.Count == 0)
                 Console.WriteLine("\nNo Record found");
@@ -196,9 +197,9 @@ public class Warehouse
     public string ProductName { get; set; }
     public int Quantity { get; set; }
     public DateTime Date { get; set; }
-    public User CreatedBy { get; set; }
+    public Admin CreatedBy { get; set; }
 
-    public static void AddProduct(List<Warehouse> warehouseUser, List<User> users)
+    public static void AddProduct(List<Warehouse> warehouseUser, List<Admin> users)
     {
         var keepRunning = true;
         while (keepRunning)
@@ -258,7 +259,7 @@ public class Warehouse
                 orders.ProductName = productName;
                 orders.Quantity = productQuantity;
                 orders.Date = DateTime.Now;
-                orders.CreatedBy = User.CurrentUser;
+                orders.CreatedBy = Admin.CurrentUser;
                 newItems.Add(orders);
             }
 
@@ -281,7 +282,7 @@ public class Warehouse
         }
     }
 
-    public static void DisplayWarehouse(List <Warehouse> warehouseUser, List<User> users)
+    public static void DisplayWarehouse(List <Warehouse> warehouseUser, List<Admin> users)
         {
             if (warehouseUser.Count == 0)
             Console.WriteLine("No Record found");
@@ -297,11 +298,11 @@ public class Warehouse
             }
         }
 }
-public class Info 
+public class User
 {
     public string order { get; set; }
     public int Quantity { get; set; }
-    public static void UserInfo(List<Warehouse> warehouseUser, List<User> users, List<Info> userProductOrders)
+    public static void UserInfo(List<Warehouse> warehouseUser, List<Admin> users, List<User> userProductOrders)
     {
         var keepRunning = true;
 
@@ -364,7 +365,7 @@ public class Info
                     Console.WriteLine("Quantity: " + quantity);
 
                     warehouseUser[selected - 1].Quantity -= quantity;
-                    Info orders = new Info();
+                    User orders = new User();
                     orders.order = warehouseUser[selected - 1].ProductName;
                     orders.Quantity = quantity;
                     userProductOrders.Add(orders);
@@ -386,7 +387,7 @@ public class Info
             } 
         }
     }
-    public static void DisplayUserOrders(List<Info> userProductOrders)
+    public static void DisplayUserOrders(List<User> userProductOrders)
     {
         if (userProductOrders.Count == 0)
             Console.WriteLine("\nNo Record found");

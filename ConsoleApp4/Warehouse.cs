@@ -29,7 +29,7 @@ public class Warehouse
 
         foreach (var orders in userProductOrders)
         {
-            Console.WriteLine("\nProduct name: " + orders.order);
+            Console.WriteLine("\nProduct name: " + orders.Order);
             Console.WriteLine("Quantity: " + orders.Quantity);
         }
     }
@@ -120,7 +120,11 @@ public class Warehouse
     public static void DisplayWarehouse(List<Warehouse> warehouseUser, List<Admin> users)
     {
         if (warehouseUser.Count == 0)
+        {
             Console.WriteLine("No Record found");
+            return;
+        }
+
 
         Console.WriteLine("\nUSER LIST");
         foreach (var orders in warehouseUser)

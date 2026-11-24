@@ -9,7 +9,7 @@ namespace ConsoleApp4
 {
     public class User
     {
-        public string order { get; set; }
+        public string Order { get; set; }
         public int Quantity { get; set; }
 
         public static void UserInfo(List<Warehouse> warehouseUser, List<Admin> users, List<User> userProductOrders)
@@ -77,7 +77,7 @@ namespace ConsoleApp4
 
                     warehouseUser[selected - 1].Quantity -= quantity;
                     User orders = new User();
-                    orders.order = warehouseUser[selected - 1].ProductName;
+                    orders.Order = warehouseUser[selected - 1].ProductName;
                     orders.Quantity = quantity;
                     userProductOrders.Add(orders);
 
@@ -102,7 +102,7 @@ namespace ConsoleApp4
 
             foreach (var orders in userProductOrders)
             {
-                Console.WriteLine("\nProduct name: " + orders.order);
+                Console.WriteLine("\nProduct name: " + orders.Order);
                 Console.WriteLine("Quantity: " + orders.Quantity);
             }
         }

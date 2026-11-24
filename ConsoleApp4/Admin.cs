@@ -14,49 +14,68 @@ namespace FOPGROUPMAIN
 
         public static void AddUser(List<Admin> users, List<Warehouse> warehouseUser)
         {
-            Console.Write("Enter your username: ");
-            var username = Console.ReadLine();
-
-            foreach (var user in users)
+            var keepRunning = true;
+            while (keepRunning)
             {
-                if (user.Username == username)
-                {
-                    Console.WriteLine("\nUser existing detected, enter password to login.");
-                    Console.Write("Enter your password to login: ");
-                    var loginPassword = Console.ReadLine().Trim();
+                Console.Write("Enter your username: ");
+                var username = Console.ReadLine();
 
-                    if (user.Password == loginPassword)
-                    {
-                        CurrentUser = user;
-                        Console.WriteLine("\nLogin successful.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("\nWrong password detected create new account.");
-                        Console.WriteLine();
-                        Admin.AddUser(users, warehouseUser);
-                    }
+                if (CurrentUser != null && CurrentUser.Username == username)
+                {
+                    Console.WriteLine("\nWelcome back, " + CurrentUser.Username + ".");
                     return;
                 }
+
+                foreach (var user in users)
+                {
+                    if (user.Username == username)
+                    {
+                        Console.WriteLine("\nUser existing detected, enter password to login.");
+
+                        while (true)
+                        {
+                            Console.Write("Enter your password to login: ");
+                            var loginPassword = Console.ReadLine().Trim();
+
+                            if (user.Password == loginPassword)
+                            {
+                                CurrentUser = user;
+                                Console.WriteLine("\nLogin successful.");
+                                return;
+                            }
+
+                            Console.Write("\nWrong password. Do you want to try again? (Y/N): ");
+                            string answer = Console.ReadLine().Trim().ToLower();
+
+                            if (answer != "y")
+                            {
+                                Console.WriteLine("Login cancelled.");
+                                return;
+                            }
+                        }
+                    }
+                }
+
+                Console.Write("Enter your password: ");
+                var password = Console.ReadLine();
+
+                Admin newUser = new Admin();
+                newUser.Username = username;
+                newUser.Password = password;
+                users.Add(newUser);
+                CurrentUser = newUser;
+
+                Console.WriteLine("\nAccount created.");
+                break;
             }
-
-            Console.Write("Enter your password: ");
-            var password = Console.ReadLine();
-
-            Admin newUser = new Admin();
-            newUser.Username = username;
-            newUser.Password = password;
-            users.Add(newUser);
-            CurrentUser = newUser;
-
-            Console.WriteLine("\nAccount created.");
         }
+
 
         public static void SetNewPassword(List<Admin> users)
         {
             if (users.Count == 0)
             {
-                Console.WriteLine("No Record found");
+                Console.WriteLine("\nNo Record found");
                 return;
             }
             Console.WriteLine("\nACCOUNTS");
@@ -66,16 +85,22 @@ namespace FOPGROUPMAIN
                 Console.WriteLine($"Username: " + users[i].Username);
             }
 
-            Console.Write("Search the user you want to change password: ");
-            var selected = Console.ReadLine();
+            Console.Write("Enter the number of the user you want to change password: ");
+            int selected;
 
-            Admin found = users.Find(u => u.Username == selected);
-
-            if (found == null)
+            if (!int.TryParse(Console.ReadLine(), out selected))
             {
-                Console.WriteLine("User not found.");
+                Console.WriteLine("\nInvalid input.");
                 return;
             }
+
+            if (selected < 1 || selected > users.Count)
+            {
+                Console.WriteLine("\nUser not found.");
+                return;
+            }
+
+            Admin found = users[selected - 1];
 
             Console.Write("Enter new password: ");
             var newPassword = Console.ReadLine();
@@ -84,7 +109,7 @@ namespace FOPGROUPMAIN
 
             if (newPassword != confirmPassword)
             {
-                Console.WriteLine("Passwords do not match.");
+                Console.WriteLine("\nPasswords do not match.");
                 return;
             }
 
@@ -174,5 +199,6 @@ namespace FOPGROUPMAIN
             if (!any)
                 Console.WriteLine("No Active User");
         }
+
     }
 }

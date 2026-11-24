@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Net.Http.Headers;
+using ConsoleApp4;
 
 namespace FOPGROUPMAIN
 {
@@ -9,14 +10,15 @@ namespace FOPGROUPMAIN
     {
         static void Main(string[] args)
         {
-            List<Admin> users = new List<Admin>();
-            List<Warehouse> warehouseUser = new List<Warehouse>();
-            List<User> userOrders = new List<User>();  
-            
+            List<Admin> adminUsers = new List<Admin>();
+            List<Warehouse> warehouseUsers = new List<Warehouse>();
+            List<User> userOrders = new List<User>();
+
             Console.WriteLine("SELECTION MENU");
-            Login(users, warehouseUser, userOrders);
+            Login(adminUsers, warehouseUsers, userOrders);
         }
-        public static void Login(List<Admin> users, List<Warehouse> warehouseUser, List<User> userOrders)
+
+        public static void Login(List<Admin> adminUsers, List<Warehouse> warehouseUsers, List<User> userOrders)
         {
             var keepRunning = true;
             var attempts = 3;
@@ -41,18 +43,15 @@ namespace FOPGROUPMAIN
                 switch (input)
                 {
                     case 1:
-                        Admin.AddUser(users, warehouseUser);
-                        AdminConditions(users, warehouseUser, userOrders);
-                        keepRunning = false;
+                        Admin.AddUser(adminUsers, warehouseUsers);
+                        AdminConditions(adminUsers, warehouseUsers, userOrders);
                         break;
                     case 2:
-                        Admin.AddUser(users, warehouseUser);
-                        WarehouseConditions(users, warehouseUser, userOrders);
-                        keepRunning = false;
+                        Admin.AddUser(adminUsers, warehouseUsers);
+                        WarehouseConditions(adminUsers, warehouseUsers, userOrders);
                         break;
                     case 3:
-                        UserConditions(users, warehouseUser, userOrders);
-                        keepRunning = false;
+                        UserConditions(adminUsers, warehouseUsers, userOrders);
                         break;
                     case 4:
                         Console.WriteLine("\nLogging Out...");
@@ -73,7 +72,8 @@ namespace FOPGROUPMAIN
                 }
             }
         }
-        public static void AdminConditions(List<Admin> users, List<Warehouse> warehouseUser, List<User> userOrders)
+
+        public static void AdminConditions(List<Admin> adminUsers, List<Warehouse> warehouseUsers, List<User> userOrders)
         {
             var keepRunningAdmin = true;
             while (keepRunningAdmin)
@@ -96,38 +96,38 @@ namespace FOPGROUPMAIN
                 if (!int.TryParse(Console.ReadLine(), out input))
                 {
                     Console.WriteLine("\nInvalid input, please try again.");
+                    continue;
                 }
 
                 switch (input)
                 {
                     case 1:
-                        Admin.SetNewPassword(users);
+                        Admin.SetNewPassword(adminUsers);
                         break;
                     case 2:
-                        Admin.DeactivateUser(users);
+                        Admin.DeactivateUser(adminUsers);
                         break;
                     case 3:
-                        Admin.AddUser(users, warehouseUser);
+                        Admin.AddUser(adminUsers, warehouseUsers);
                         break;
                     case 4:
-                        Admin.DisplayAllUsers(users);
+                        Admin.DisplayAllUsers(adminUsers);
                         break;
                     case 5:
-                        Admin.DisplayInactiveUsers(users);
+                        Admin.DisplayInactiveUsers(adminUsers);
                         break;
                     case 6:
-                        Admin.DisplayActiveUsers(users);
+                        Admin.DisplayActiveUsers(adminUsers);
                         break;
                     case 7:
-                        Admin.DisplayProducts(warehouseUser);
+                        Warehouse.DisplayProducts(warehouseUsers);
                         break;
                     case 8:
-                        Admin.DisplayOrders(userOrders);
+                        Warehouse.DisplayOrders(userOrders);
                         break;
                     case 9:
                         Console.WriteLine("Logging out...");
                         keepRunningAdmin = false;
-                        Login(users, warehouseUser, userOrders);
                         break;
                     default:
                         Console.WriteLine("Invalid input");
@@ -135,7 +135,8 @@ namespace FOPGROUPMAIN
                 }
             }
         }
-        public static void WarehouseConditions(List<Admin> users, List<Warehouse> warehouseUser, List<User> userOrders)
+
+        public static void WarehouseConditions(List<Admin> adminUsers, List<Warehouse> warehouseUsers, List<User> userOrders)
         {
             var keepRunningWarehouse = true;
             while (keepRunningWarehouse)
@@ -152,20 +153,20 @@ namespace FOPGROUPMAIN
                 if (!int.TryParse(Console.ReadLine(), out input))
                 {
                     Console.WriteLine("\nInvalid input, please try again.");
+                    continue;
                 }
 
                 switch (input)
                 {
                     case 1:
-                        Warehouse.AddProduct(warehouseUser, users);
+                        Warehouse.AddProduct(warehouseUsers, adminUsers);
                         break;
                     case 2:
-                        Warehouse.DisplayWarehouse(warehouseUser, users);
+                        Warehouse.DisplayWarehouse(warehouseUsers, adminUsers);
                         break;
                     case 3:
                         Console.WriteLine("Logging out...");
                         keepRunningWarehouse = false;
-                        Login(users, warehouseUser, userOrders);
                         break;
                     default:
                         Console.WriteLine("Invalid input");
@@ -173,7 +174,8 @@ namespace FOPGROUPMAIN
                 }
             }
         }
-        public static void UserConditions(List<Admin> users, List<Warehouse> warehouseUser, List<User> userProductOrders)
+
+        public static void UserConditions(List<Admin> adminUsers, List<Warehouse> warehouseUsers, List<User> userProductOrders)
         {
             var keepRunningUser = true;
             while (keepRunningUser)
@@ -189,11 +191,13 @@ namespace FOPGROUPMAIN
                 if (!int.TryParse(Console.ReadLine(), out input))
                 {
                     Console.WriteLine("\nInvalid input, please try again.");
+                    continue;
                 }
+
                 switch (input)
                 {
                     case 1:
-                        User.UserInfo(warehouseUser, users, userProductOrders);
+                        User.UserInfo(warehouseUsers, adminUsers, userProductOrders);
                         break;
                     case 2:
                         User.DisplayUserOrders(userProductOrders);
@@ -201,7 +205,6 @@ namespace FOPGROUPMAIN
                     case 3:
                         Console.WriteLine("Logging out...");
                         keepRunningUser = false;
-                        Login(users, warehouseUser, userProductOrders);
                         break;
                     default:
                         Console.WriteLine("Invalid input");

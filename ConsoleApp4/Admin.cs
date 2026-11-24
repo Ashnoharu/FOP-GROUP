@@ -11,6 +11,25 @@ namespace FOPGROUPMAIN
         public string Username { get; set; }
         public string Password { get; set; }
         public bool IsActive { get; set; } = true;
+        public int Roles { get; set; }
+
+        public string RoleName
+        {
+            get
+            {
+                switch (Roles)
+                {
+                    case 1:
+                        return "Admin";
+                    case 2:
+                        return "Warehouse";
+                    case 3:
+                        return "User";
+                    default:
+                        return "None";
+                }
+            }
+        }
 
         public static void AddUser(List<Admin> users, List<Warehouse> warehouseUser)
         {
@@ -18,13 +37,7 @@ namespace FOPGROUPMAIN
             while (keepRunning)
             {
                 Console.Write("Enter your username: ");
-                var username = Console.ReadLine();
-
-                if (CurrentUser != null && CurrentUser.Username == username)
-                {
-                    Console.WriteLine("\nWelcome back, " + CurrentUser.Username + ".");
-                    return;
-                }
+                var username = Console.ReadLine().Trim();
 
                 foreach (var user in users)
                 {
@@ -50,7 +63,7 @@ namespace FOPGROUPMAIN
                             if (answer != "y")
                             {
                                 Console.WriteLine("Login cancelled.");
-                                return;
+                                AddUser(users, warehouseUser);
                             }
                         }
                     }
@@ -78,7 +91,7 @@ namespace FOPGROUPMAIN
                 Console.WriteLine("\nNo Record found");
                 return;
             }
-            Console.WriteLine("\nACCOUNTS");
+            Console.WriteLine("\n=====ACCOUNTS=====");
 
             for (int i = 0; i < users.Count; i++)
             {
@@ -124,14 +137,14 @@ namespace FOPGROUPMAIN
                 Console.WriteLine("No Record found");
                 return;
             }
-            Console.WriteLine("\nACCOUNTS");
+            Console.WriteLine("\n=====ACCOUNTS=====");
 
             foreach (var user in users)
             {
                 Console.WriteLine("Username: " + user.Username);
             }
 
-            Console.WriteLine("\nDEACTIVATING USERS");
+            Console.WriteLine("\n=====DEACTIVATING USERS=====");
             Console.Write("Enter a username to deactivate: ");
             var keyword = Console.ReadLine().ToLower();
 
@@ -159,44 +172,47 @@ namespace FOPGROUPMAIN
             if (users.Count == 0)
                 Console.WriteLine("No Record found");
 
-            Console.WriteLine("\nUSER LIST");
+            Console.WriteLine("\n=====USER LIST=====");
             foreach (var user in users)
             {
                 Console.WriteLine();
                 Console.WriteLine("Username: " + user.Username);
+                Console.WriteLine("Login from: " + user.RoleName);
                 Console.WriteLine("Status: " + (user.IsActive ? "Active" : "Deactivated"));
             }
         }
 
         public static void DisplayInactiveUsers(List<Admin> users)
         {
-            var any = false;
+            var availableUsers = false;
+            Console.WriteLine("\n =====INACTIVE USER LIST=====");
             foreach (var user in users)
             {
                 if (!user.IsActive)
                 {
-                    Console.WriteLine("\nUsername: " + user.Username);
-                    any = true;
+                    Console.WriteLine("Username: " + user.Username);
+                    availableUsers = true;
                 }
             }
 
-            if (!any)
+            if (!availableUsers)
                 Console.WriteLine("No Inactive User");
         }
 
         public static void DisplayActiveUsers(List<Admin> users)
         {
-            var any = false;
+            var availableUsers = false;
+            Console.WriteLine("\n =====ACTIVE USER LIST=====");
             foreach (var user in users)
             {
                 if (user.IsActive)
                 {
-                    Console.WriteLine("\nUsername: " + user.Username);
-                    any = true;
+                    Console.WriteLine("Username: " + user.Username);
+                    availableUsers = true;
                 }
             }
 
-            if (!any)
+            if (!availableUsers)
                 Console.WriteLine("No Active User");
         }
 

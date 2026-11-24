@@ -13,6 +13,7 @@ namespace FOPGROUPMAIN
             List<Admin> adminUsers = new List<Admin>();
             List<Warehouse> warehouseUsers = new List<Warehouse>();
             List<User> userOrders = new List<User>();
+            List<Admin> roles = new List<Admin> ();
 
             Console.WriteLine("SELECTION MENU");
             Login(adminUsers, warehouseUsers, userOrders);
@@ -44,13 +45,20 @@ namespace FOPGROUPMAIN
                 {
                     case 1:
                         Admin.AddUser(adminUsers, warehouseUsers);
+                        if (Admin.CurrentUser != null)
+                            Admin.CurrentUser.Roles = 1;
                         AdminConditions(adminUsers, warehouseUsers, userOrders);
                         break;
                     case 2:
                         Admin.AddUser(adminUsers, warehouseUsers);
+                        if (Admin.CurrentUser != null)
+                            Admin.CurrentUser.Roles = 2;
                         WarehouseConditions(adminUsers, warehouseUsers, userOrders);
                         break;
                     case 3:
+                        Admin.AddUser(adminUsers, warehouseUsers);
+                        if (Admin.CurrentUser != null)
+                            Admin.CurrentUser.Roles = 3;
                         UserConditions(adminUsers, warehouseUsers, userOrders);
                         break;
                     case 4:
